@@ -1,0 +1,42 @@
+
+<div>
+    <app-header-dashboard [dashboard]="dashboard" [urlBack]="urlBack"></app-header-dashboard>
+
+    <section class="section-view-dashboard">
+
+        <div class="wrapper active">
+
+            <div class="header-wrapper">
+                <div class="header-tab">
+                    <button class="active">Dados</button>
+                </div>
+            </div>
+            <!-- Register -->
+
+            <div class="form-box">
+                <form [formGroup]="form" (submit)="editCategoria()">
+                    
+                    <div class="box">
+                        
+                        <div class="input-box">
+                            <label>Categoria</label>
+                            <input type="text" formControlName="categoria"
+                            value="{{ categoria }}" required>
+                        </div>
+        
+                        <div class="input-box">
+                            <div class="controls">
+                                <button  type="reset" class="btn">Limpar</button>
+                                <button  type="submit" class="btn">Actualizar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </form>
+            </div>
+
+        </div>
+        
+    </section>
+</div>

@@ -1,0 +1,64 @@
+
+<div>
+    <app-header-dashboard [dashboard]="dashboard" [urlBack]="urlBack"></app-header-dashboard>
+
+    <section class="section-view-dashboard">
+
+        <div class="wrapper active">
+
+            <div class="header-wrapper">
+                <div class="header-tab">
+                    <button class="active">Dados</button>
+                </div>
+            </div>
+            <!-- Register -->
+
+            <div class="form-box">
+                <form [formGroup]="form" (submit)="addProducto()">
+                    
+                    <div class="box">
+                        
+                        <div class="input-box">
+                            <label>Nome do Producto</label>
+                            <input type="text" formControlName="nome" id="nome">
+                        </div>
+        
+                        <div class="input-box">
+                            <label>Preco de Venda</label>
+                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            placeholder="1.00"/>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Categoria</label>
+                            <select formControlName="categoria" id="categoria">
+                                <option *ngFor="let cat of categorias" value="{{ cat.id }}">{{ cat.categoria }}</option>
+                            </select>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Image</label>
+                            <input type="file" formControlName="filetoupload" id="filetoupload"/>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Descricao</label>
+                            <textarea formControlName="desc" id="desc"></textarea>
+                        </div>
+
+                        <div class="input-box">
+                            <div class="controls">
+                                <button  type="reset" class="btn">Limpar</button>
+                                <button  type="submit" class="btn">Register</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </form>
+            </div>
+
+        </div>
+
+    </section>
+</div>

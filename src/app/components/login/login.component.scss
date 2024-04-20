@@ -1,0 +1,162 @@
+
+// COLOR
+$w:#ffff;
+$b:#000;
+$b_c:#333;
+$r:#f00;
+$r_z:rgb(247, 161, 161);
+$a:#00f;
+$b_sd:0 0 30px rgba(0, 0, 0, .5);
+$d_border:2px solid rgba(255, 255, 255, .5);
+$full_prc:100%;
+$vh:100vh;
+$vw:100vw;
+//$c_p:#162938;
+$c_p_c:#0690f9;
+$c_p:#2e84c6;
+$c_p_b:#a0d5fe;
+
+
+#app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: $vh;
+}
+
+/* Wrapper: Email and Login*/
+
+.wrapper{
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: $d_border;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: $b_sd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transform: scale(1);
+    transition: transform .5s ease,height .2s ease;
+}
+
+.wrapper .form-box{
+    width: $full_prc;
+    padding: 40px;
+}
+
+.wrapper .login{
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.form-box h2{
+    font-size: 2em;
+    color: $c_p_c;
+    text-align: center;
+}
+.input-box{
+    position: relative;
+    width: $full_prc;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: $c_p_c;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top: -5px;
+}
+
+.input-box input{
+    width: $full_prc;
+    height: $full_prc;
+    background:transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: $b_c;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+.input-box .icon{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    line-height: 57px;
+
+    & svg path{
+        fill: $c_p_c;
+    }
+}
+
+
+.remember-forgot{
+    font-size: .9em;
+    color: $c_p;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input{
+    accent-color: $c_p;
+    margin-right: 3px;
+}
+
+.remember-forgot a{
+    color: $c_p;
+    text-decoration: none;
+}
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+.btn{
+    width: $full_prc;
+    height: 45px;
+    background: $c_p_b;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: $w;
+    font-weight: 500; 
+
+    &:hover{
+        background-color: $c_p;
+        font-weight: bold;
+    }
+}
+
+.login-register{
+    font-size: .9em;
+    color: $b;
+    text-align: center;
+    font-weight: 500;
+    margin: 15px 0 10px;
+}
+.login-register p a{
+    color: $c_p;
+    text-decoration: none;
+    font-weight: 500;
+}
+.login-register p a:hover{
+    text-decoration: underline;
+}
