@@ -12,13 +12,20 @@ import { EditCategoriaComponent } from './components/dashboard/categoria/edit-ca
 import { ViewProductComponent } from './components/dashboard/product/view-product/view-product.component';
 import { EditProductComponent } from './components/dashboard/product/edit-product/edit-product.component';
 import { ViewDashboardComponent } from './components/dashboard/view-dashboard/view-dashboard.component';
+import { VerifyComponent } from './components/verify/verify.component';
 
 const routes: Routes = [
   //{path:'',component:HomeComponent},
+  // User
   {path:'',component:LoginComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'forget-password',component:ForgotPasswordComponent},
+  // Verify
+  {path:':slug/verify',component:VerifyComponent},
+  {path:':slug/verify/:otp',component:VerifyComponent},
+  // Dashbord
+  {path:':slug',component:ViewDashboardComponent},
   {path:'dashboard',component:ViewDashboardComponent},
   {path:'dashboard/product',component:ViewProductComponent},
   {path:'dashboard/product/add',component:AddProductComponent},

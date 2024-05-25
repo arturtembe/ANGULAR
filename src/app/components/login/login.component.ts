@@ -35,39 +35,58 @@ export class LoginComponent {
     
     if(this.valid.textValid(this.form.value.email) && this.valid.emailValid(this.form.value.email)){
       alert("O campo Email e obrigatorio!");
+      return;
     }
     else if(this.valid.emailValid(this.form.value.email)){
       alert("Email Invalido!");
+      return;
     }
     else if(this.valid.textValid(this.form.value.password)){
       alert("O campo Senha e obrigatorio!");
+      return;
     }
     else if(this.valid.passwordValid(this.form.value.password)){
       alert("Senha deve ter no minimo 8 digitos!");
+      return;
     }
-    else{
-      
-      let dataForm=new FormData();
+    
+    let dataForm:any = new FormData();
       dataForm.append("email",this.form.value.email);
       dataForm.append("password",this.form.value.password);
+      dataForm.append("href", `${location.protocol}//${location.host}`);
 
-      this.usuarioService.loginUsuario(dataForm).subscribe(data=>{
-        let info:any[]=data;
-        if(info[0].status==1){
+      this.usuarioService.loginUsuario(new URLSearchParams(dataForm)).subscribe(data=>{
+        
+        let dado:any = data;
+        //console.log(dado.profile.user.slug);
+        sessionStorage.setItem("tokenGTask", dado.token);
+        location.href = `/${dado.profile.user.slug}`;
+        //sessionStorage.setItem("tknIdshoopee",data);
+        
+      }, async(error)=>{
+        
+        if(error.error.status==400){
+          //console.log(error.error);
           
-          //if(this.form.value.checkbox)
+          this.usuarioService.otpCreateUsuario(new URLSearchParams(dataForm)).subscribe(otp=>{
+            
+            //console.log(otp);
+            
+            location.href = otp.href;
+            
+          },(err)=>{
+            console.log(err);
+          });
 
-            sessionStorage.setItem("tknIdshoopee",info[0].id);
+          //alert(error.error.message);
+          //alert(error.error.eml);
           
-
-          location.href="/dashboard";
-          //alert(info[0].msg);
-        }else{
-          alert(info[0].msg);
         }
+        else{
+          alert(error.error.message);
+        }
+        //console.log(error);
       });
-
-    }
   
   }
 

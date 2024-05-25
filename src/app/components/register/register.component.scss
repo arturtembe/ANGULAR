@@ -22,6 +22,9 @@ $c_p_b:#a0d5fe;
     justify-content: center;
     align-items: center;
     min-height: $vh;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    position: relative;
 }
 
 /* Wrapper: Email and Login*/

@@ -19,6 +19,8 @@ import { ViewProductComponent } from './components/dashboard/product/view-produc
 import { EditProductComponent } from './components/dashboard/product/edit-product/edit-product.component';
 import { ViewDashboardComponent } from './components/dashboard/view-dashboard/view-dashboard.component';
 import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
+import { VerifyComponent } from './components/verify/verify.component';
+import { SuccessComponent } from './components/message/success/success.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { HeaderDashboardComponent } from './components/dashboard/header-dashboar
     ViewProductComponent,
     EditProductComponent,
     ViewDashboardComponent,
-    HeaderDashboardComponent
+    HeaderDashboardComponent,
+    VerifyComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import { Usuario } from '../interfaces/Usuario';
 })
 export class ValidUser {
 
-  private token:string|null=sessionStorage.getItem("tknIdshoopee");
+  private token:string|null=sessionStorage.getItem("tokenGTask");
 
   idUser:string="";
   data:Usuario[]=[];
@@ -20,9 +20,11 @@ export class ValidUser {
   userValid(){
     
       this.usuarioService.tokenUsuario(this.token).subscribe(data=>{
-          if(data[0].status<1){
-            this.restartSession();        
-          }
+        
+        //console.log(data);
+      }, (error)=>{
+        console.log(error.error);
+        this.restartSession();
       });
       
   }
@@ -41,7 +43,7 @@ export class ValidUser {
     location.href="/dashboard";
   }
   restartSession(){
-    sessionStorage.setItem("tknIdshoopee","");
+    sessionStorage.setItem("tokenGTask","");
     location.href="/login";
   }
 

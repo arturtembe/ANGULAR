@@ -68,22 +68,20 @@ export class RegisterComponent {
 
       this.usuarioService.registerUsuario(new URLSearchParams(dataForm)).subscribe(data=>{
         
-        console.log(data);
+        //alert("Registado com sucesso!")
         
-        /*
-        let info:any[]=data;
-        if(info[0].status==1){
-          //sessionStorage.setItem("tknIdshoopee",info[0].id);
+        this.usuarioService.otpCreateUsuario(new URLSearchParams(dataForm)).subscribe(otp=>{
+            
+          //console.log(otp);
           
-          location.href="/dashboard";
-        }else{
-          alert(info[0].msg);
+          location.href = otp.href;
           
-        }
-        */
+        },(err)=>{
+          console.log(err);
+        });
+
       },(error)=>{
-        console.log(error);
-        
+        alert(error.error.message);
       });
   
   }

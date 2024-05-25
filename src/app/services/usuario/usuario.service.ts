@@ -15,12 +15,17 @@ export class UsuarioService {
 
   loginUsuario(usuario:any):Observable<Usuario[]>{
 
-    return this.http.post<Usuario[]>(endpoint.login,usuario)
+    return this.http.post<Usuario[]>(endpoint.login,usuario,{
+      headers:{
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "*/*"
+      }
+    });
   }
 
-  registerUsuario(usuario:any):Observable<Usuario[]>{
+  registerUsuario(usuario:any):Observable<any>{
 
-    return this.http.post<Usuario[]>(endpoint.register,usuario,{
+    return this.http.post<any>(endpoint.register,usuario,{
       headers:{
         "Content-Type": "application/x-www-form-urlencoded",
         "Accept": "*/*"
@@ -28,9 +33,39 @@ export class UsuarioService {
     })
   }
 
-  tokenUsuario(token:string|null):Observable<Usuario[]>{
+  otpCreateUsuario(usuario:any):Observable<any>{
 
-    return this.http.get<Usuario[]>(`${this.apiUrl_TOKEN}?token=${token}`);
+    return this.http.post<any>(endpoint.otpCreate,usuario,{
+      headers:{
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "*/*"
+      }
+    })
+  }
+
+  otpVerifyUsuario(usuario:any):Observable<any>{
+
+    return this.http.post<any>(endpoint.otpVerify,usuario,{
+      headers:{
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "*/*"
+      }
+    })
+  }
+
+  verifyUsuario(slug:any):Observable<any>{
+    return this.http.get<any>(`${endpoint.verify}/${slug}`,{
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  tokenUsuario(token:string|null):Observable<any>{
+
+    return this.http.get<any>(endpoint.verifyToken,{
+      headers:{
+        "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+      }
+    });
   }
 
 }
