@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-
-
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-
-import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Usuario } from '../../interfaces/Usuario';
 import endpoint from '../../helpers/endpoint.helpers';
 
@@ -12,9 +9,6 @@ import endpoint from '../../helpers/endpoint.helpers';
 })
 export class UsuarioService {
 
-  //private apiUrl_LOGIN='http://localhost:3000/db/controllers/shoopee/usuarioController/loginUser.php';
-  //private apiUrl_REGISTER='http://localhost:3000/db/controllers/shoopee/usuarioController/registerUser.php';
-  
   private apiUrl_TOKEN='http://localhost:3000/db/controllers/shoopee/usuarioController/getUserAPI.php';
 
   constructor(private http:HttpClient) { }
@@ -26,13 +20,17 @@ export class UsuarioService {
 
   registerUsuario(usuario:any):Observable<Usuario[]>{
 
-    return this.http.post<Usuario[]>(endpoint.register,usuario)
+    return this.http.post<Usuario[]>(endpoint.register,usuario,{
+      headers:{
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "*/*"
+      }
+    })
   }
 
   tokenUsuario(token:string|null):Observable<Usuario[]>{
 
     return this.http.get<Usuario[]>(`${this.apiUrl_TOKEN}?token=${token}`);
   }
-
 
 }

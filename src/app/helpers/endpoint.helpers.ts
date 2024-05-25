@@ -1,8 +1,8 @@
 
-const host:string = `http://localhost:3333/shopee/mongodb`;
+const host:string = `http://localhost:3333/mongodb/shopee`;
 
 const endpoint = {
-    register: `${host}/register`,
+    register: `${host}/register/href`,
     login: `${host}/login`,
 }
 

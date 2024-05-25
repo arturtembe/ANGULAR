@@ -36,30 +36,41 @@ export class RegisterComponent {
     
     if(this.valid.textValid(this.form.value.username)){
       alert("O campo Username e obrigatorio!");
+      return;
     }
-    else if(this.valid.textValid(this.form.value.email) && this.valid.emailValid(this.form.value.email)){
+    if(this.valid.textValid(this.form.value.email) && this.valid.emailValid(this.form.value.email)){
       alert("O campo Email e obrigatorio!");
+      return;
     }
-    else if(this.valid.emailValid(this.form.value.email)){
+    if(this.valid.emailValid(this.form.value.email)){
       alert("Email Invalido!");
+      return;
     }
-    else if(this.valid.textValid(this.form.value.password)){
+    if(this.valid.textValid(this.form.value.password)){
       alert("O campo Senha e obrigatorio!");
+      return;
     }
-    else if(this.valid.passwordValid(this.form.value.password)){
+    if(this.valid.passwordValid(this.form.value.password)){
       alert("Senha deve ter no minimo 8 digitos!");
+      return;
     }
-    else if(!this.form.value.checkbox){
+    if(!this.form.value.checkbox){
       alert("Porfavor selecione os termo e condicoes!");
+      return;
     }
-    else{
-      
-      let dataForm=new FormData();
+    
+    // Aqui vem o codigo
+    let dataForm:any=new FormData();
       dataForm.append("username",this.form.value.username);
       dataForm.append("email",this.form.value.email);
       dataForm.append("password",this.form.value.password);
+      dataForm.append("href", `${location.protocol}//${location.host}`);
 
-      this.usuarioService.registerUsuario(dataForm).subscribe(data=>{
+      this.usuarioService.registerUsuario(new URLSearchParams(dataForm)).subscribe(data=>{
+        
+        console.log(data);
+        
+        /*
         let info:any[]=data;
         if(info[0].status==1){
           //sessionStorage.setItem("tknIdshoopee",info[0].id);
@@ -69,9 +80,11 @@ export class RegisterComponent {
           alert(info[0].msg);
           
         }
+        */
+      },(error)=>{
+        console.log(error);
+        
       });
-
-    }
   
   }
 
