@@ -13,6 +13,7 @@ import { ViewProductComponent } from './components/dashboard/product/view-produc
 import { EditProductComponent } from './components/dashboard/product/edit-product/edit-product.component';
 import { ViewDashboardComponent } from './components/dashboard/view-dashboard/view-dashboard.component';
 import { VerifyComponent } from './components/verify/verify.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   //{path:'',component:HomeComponent},
@@ -26,13 +27,16 @@ const routes: Routes = [
   {path:':slug/verify/:otp',component:VerifyComponent},
   // Dashbord
   {path:':slug',component:ViewDashboardComponent},
-  {path:'dashboard',component:ViewDashboardComponent},
-  {path:'dashboard/product',component:ViewProductComponent},
-  {path:'dashboard/product/add',component:AddProductComponent},
-  {path:'dashboard/product/edit/:id',component:EditProductComponent},
-  {path:'dashboard/categoria',component:ViewCategoriaComponent},
-  {path:'dashboard/categoria/add',component:AddCategoriaComponent},
-  {path:'dashboard/categoria/edit/:id',component:EditCategoriaComponent}
+  //{path:'dashboard',component:ViewDashboardComponent},
+  {path:':slug/product',component:ViewProductComponent},
+  {path:':slug/product/add',component:AddProductComponent},
+  {path:':slug/product/edit/:id',component:EditProductComponent},
+  // Categoria
+  {path:':slug/categoria',component:ViewCategoriaComponent},
+  {path:':slug/categoria/add',component:AddCategoriaComponent},
+  {path:':slug/categoria/edit/:id',component:EditCategoriaComponent},
+  // Not Found
+  {path:'notfound',component:PagenotfoundComponent}
 ];
 
 @NgModule({

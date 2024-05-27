@@ -3,39 +3,60 @@ import { Injectable } from '@angular/core';
 import { Categoria } from '../../interfaces/Categoria';
 
 import { Observable } from 'rxjs';
+import endpoint from '../../helpers/endpoint.helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService{
 
-  private apiUrl_GET='http://localhost:3000/db/controllers/shoopee/categoriaController/getCategoriaAPI.php';
-  private apiUrl_POST='http://localhost:3000/db/controllers/shoopee/categoriaController/addCategoriaAPI.php';
-  private apiUrl_EDIT='http://localhost:3000/db/controllers/shoopee/categoriaController/editCategoriaAPI.php';
-  private apiUrl_DELETE='http://localhost:3000/db/controllers/shoopee/categoriaController/deleteCategoriaAPI.php';
+  headersTop = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Accept": "*/*",
+    "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+  }
 
   constructor(private http:HttpClient) { }
 
-  remove(categoria:any){
-    return this.http.post<Categoria[]>(this.apiUrl_DELETE,categoria)
-  }
-
-  getAll():Observable<Categoria[]>{
-    
-    return this.http.get<Categoria[]>(this.apiUrl_GET);
-  }
-
-  getItem(id:number):Observable<Categoria[]>{
-
-    return this.http.get<Categoria[]>(`${this.apiUrl_GET}?id=${id}`);
-  }
-
+  // ADD
   addItem(categoria:any){
-      return this.http.post<Categoria[]>(this.apiUrl_POST,categoria);
+    return this.http.post<any>(endpoint.categoriaAdd,categoria,{
+      headers:this.headersTop
+    });
   }
+
+  // GET
+  getAll():Observable<any>{
+    
+    return this.http.get<any>(endpoint.categoriaView,{
+      headers:{
+        "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+      }
+    });
+  }
+
+  getItem(id:any):Observable<any>{
+
+    return this.http.get<any>(`${endpoint.categoriaView}/${id}`,{
+      headers:{
+        "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+      }
+    });
+  }
+
   //EDIT
-  editItem(categoria:any){
-    return this.http.post<Categoria[]>(this.apiUrl_EDIT,categoria);
+  editItem(categoria:any,id:any){
+    return this.http.post<any>(`${endpoint.categoriaEdit}/${id}`,categoria,{
+      headers: this.headersTop
+    });
+  }
+
+  remove(id:any){
+    return this.http.get<any>(`${endpoint.categoriaDelete}/${id}`,{
+      headers:{
+        "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+      }
+    })
   }
 
 }

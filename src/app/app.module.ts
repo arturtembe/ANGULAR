@@ -21,6 +21,7 @@ import { ViewDashboardComponent } from './components/dashboard/view-dashboard/vi
 import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { SuccessComponent } from './components/message/success/success.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SuccessComponent } from './components/message/success/success.component
     ViewDashboardComponent,
     HeaderDashboardComponent,
     VerifyComponent,
-    SuccessComponent
+    SuccessComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

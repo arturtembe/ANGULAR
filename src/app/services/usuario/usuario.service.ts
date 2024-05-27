@@ -9,7 +9,7 @@ import endpoint from '../../helpers/endpoint.helpers';
 })
 export class UsuarioService {
 
-  private apiUrl_TOKEN='http://localhost:3000/db/controllers/shoopee/usuarioController/getUserAPI.php';
+  //private apiUrl_TOKEN='http://localhost:3000/db/controllers/shoopee/usuarioController/getUserAPI.php';
 
   constructor(private http:HttpClient) { }
 
@@ -56,6 +56,15 @@ export class UsuarioService {
   verifyUsuario(slug:any):Observable<any>{
     return this.http.get<any>(`${endpoint.verify}/${slug}`,{
       headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  verifySlug(slug:any):Observable<any>{
+    return this.http.get<any>(`${endpoint.userSlugVerify}/${slug}`,{
+      headers: { 
+        "Content-Type": "application/json", 
+        "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+      },
     });
   }
 

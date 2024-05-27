@@ -4,6 +4,7 @@ import { Categoria } from '../../../../interfaces/Categoria';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { ActivatedRoute } from '@angular/router';
 import { ValidUser } from '../../../../helpers/validUser';
+import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 
 @Component({
   selector: 'app-edit-categoria',
@@ -13,18 +14,32 @@ import { ValidUser } from '../../../../helpers/validUser';
 export class EditCategoriaComponent {
   
   dashboard="2";
-  urlBack="/dashboard/categoria";
+  urlBack="";
 
   form!:FormGroup;
-  id!:number;
+  id:string|null = ``;
   categoria!:string;
+  slug:string|null = ``;
 
   constructor(private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
               private route:ActivatedRoute,
-              private userValid:ValidUser){
+              private userValid:ValidUser,
+              private validSlugHelper:ValidSlugHelper){
+    // SLUG USER
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+
+    // EDIT ID SLUG
+    this.validSlugHelper.verifySlug_ID_EDIT(route,`/${this.slug}/categoria`);
+    this.id = this.route.snapshot.paramMap.get("id");
+                
     this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
-                this.getCategoria();
+    
+    // GET CATEGORIA ID
+    this.getCategoria();
+
+    this.urlBack =`/${this.slug}/categoria`;
   }
 
   ngOnInit():void{
@@ -33,31 +48,38 @@ export class EditCategoriaComponent {
     })
   }
 
-
   //GET
   getCategoria():void{
-    this.id=Number(this.route.snapshot.paramMap.get("id"));
-    this.categoriaService.getItem(this.id).subscribe((categorias)=>(this.categoria=categorias[0].categoria));
+    this.categoriaService.getItem(this.id).subscribe((data)=>{
+      
+      this.categoria = data.categoria.categoria;
+      //console.log(data);
+      
+    },error=>{
+      //console.log(error);
+      location.href = `/${this.slug}/categoria`;
+    });
   }
 
   editCategoria():void{
     
-    if(this.form.value.categoria!=""){
-      let dataForm=new FormData();
+    if(this.form.value.categoria==""){
+      alert("A categoria nao deve estar vazia!");
+      return;
+    }
+
+    let dataForm:any=new FormData();
       dataForm.append("categoria",this.form.value.categoria);
-      dataForm.append("id",`${this.id}`);
       
-      //console.log(this.form.value.id);
-      
-      this.categoriaService.editItem(dataForm).subscribe(data=>{
+      this.categoriaService.editItem(new URLSearchParams(dataForm),this.id).subscribe(data=>{
         
-        let info:any[]=data;
-        if(info[0].status==1){
-          alert(info[0].msg);
-        }
+        location.href = `/${this.slug}/categoria`;
+        
+      },error=>{
+        alert(error.error.message)
+        //console.log(error.error);
         
       });
-    }
 
   }
 

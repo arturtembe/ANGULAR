@@ -11,7 +11,7 @@ export class HeaderDashboardComponent {
   @Input() urlBack='';
 
   logout(){
-    sessionStorage.setItem("tknIdshoopee","");
+    sessionStorage.setItem("tokenGTask","");
     location.href="/login";
   }
 

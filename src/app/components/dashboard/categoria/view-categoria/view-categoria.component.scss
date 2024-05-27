@@ -35,7 +35,10 @@ $a_link:rgb(21, 69, 240);
             word-wrap: break-word;
         }
 
-        & a{
+        & button{
+            outline: none;
+            border: none;
+            cursor: pointer;
             background-color: $a_link;
             color: $w;
             padding: 15px 25px;

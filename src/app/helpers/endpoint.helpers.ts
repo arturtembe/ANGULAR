@@ -8,6 +8,8 @@ const endpoint = {
     otpCreate: `${host}/otp`,
     otpVerify: `${host}/update/status/otp`,
     verifyToken: `${host}/token`,
+    // Slug
+    userSlugVerify: `${host}/user`,
     // Categoria
     categoriaAdd: `${host}/categoria/add`,
     categoriaView: `${host}/categoria/view`,

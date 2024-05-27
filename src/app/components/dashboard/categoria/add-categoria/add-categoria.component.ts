@@ -4,6 +4,8 @@ import { Categoria } from '../../../../interfaces/Categoria';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidUser } from '../../../../helpers/validUser';
+import { ActivatedRoute } from '@angular/router';
+import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 
 @Component({
   selector: 'app-add-categoria',
@@ -14,16 +16,25 @@ import { ValidUser } from '../../../../helpers/validUser';
 export class AddCategoriaComponent {
 
   dashboard="2";
-  urlBack="/dashboard/categoria";
+  urlBack="";
 
   form!:FormGroup;
 
   categoria:Categoria[]=[];
+  slug:string|null = ``;
 
   constructor(private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
-              private userValid:ValidUser){
+              private userValid:ValidUser,
+              private route:ActivatedRoute,
+            private validSlugHelper:ValidSlugHelper){
+
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+    
     this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
+
+    this.urlBack =`/${this.slug}/categoria`;
   }
 
   ngOnInit():void{
@@ -34,18 +45,22 @@ export class AddCategoriaComponent {
 
   addCategoria():void{
     
-    if(this.form.value.categoria!=""){
-      let dataForm=new FormData();
-      dataForm.append("categoria",this.form.value.categoria);
-      dataForm.append("idUser",`${1}`);
-      this.categoriaService.addItem(dataForm).subscribe(data=>{
-        let info:any[]=data;
-        if(info[0].status==1){
-          alert(info[0].msg);
-        }
-      });
+    if(this.form.value.categoria==""){
+      alert("Categoria nao dever estar vazia");
+      return;
     }
-    //   
+
+    let dataForm:any=new FormData();
+      dataForm.append("categoria",this.form.value.categoria);
+      
+      this.categoriaService.addItem(new URLSearchParams(dataForm)).subscribe(data=>{
+        
+        location.href = `/${this.slug}/categoria`;
+        
+      },(error)=>{
+        console.log(error.error);
+      });
+
   }
 
 }

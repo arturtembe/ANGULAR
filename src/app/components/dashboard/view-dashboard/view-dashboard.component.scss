@@ -19,8 +19,8 @@ $a_z:rgb(47, 152, 245);
     flex-wrap: wrap;
     padding: 2% 0;
 
-    & a{
-
+    & button{
+        outline: none;
         box-shadow: 4px 4px 4px 4px $d;
         color: $b_z;
         font-size: 32px;
@@ -28,6 +28,8 @@ $a_z:rgb(47, 152, 245);
         padding: 40px;
         margin-left: 10px;
         border-radius: 10px;
+        cursor: pointer;
+        border: none;
 
         &:hover{
             background-color: $a_z;
