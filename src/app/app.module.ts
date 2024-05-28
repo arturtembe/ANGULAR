@@ -25,6 +25,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 import { ImageuploadDirective } from './directives/imageupload.directive';
 import { ProgressComponent } from './components/progress/progress.component';
+import { BoxmessageComponent } from './components/message/boxmessage/boxmessage.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ProgressComponent } from './components/progress/progress.component';
     PagenotfoundComponent,
     ImageuploadComponent,
     ImageuploadDirective,
-    ProgressComponent
+    ProgressComponent,
+    BoxmessageComponent
   ],
   imports: [
     BrowserModule,

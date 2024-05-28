@@ -8,7 +8,37 @@ export class ValidForm {
   constructor() { }
 
   textValid(value:string|null):boolean{
-    return (value=="" || value==null || value==undefined);
+    return (value=="" || value==null || typeof value==undefined);
+  }
+
+  numberValid(value:string|null):boolean{
+    let data:boolean = true;
+    
+    if(!this.textValid(value)){
+      let num:number = parseFloat(`${value}`);
+      if(!isNaN(num)){
+        if(num>0){
+          data = false;
+        }
+      }
+    }
+
+    return data;
+  }
+
+  numberValid_Qntd(value:string|null):boolean{
+    let data:boolean =false;
+    
+    if(!this.textValid(value)){
+      let num:number = parseInt(`${value}`);
+      if(!isNaN(num)){
+        if(num>0){
+          data = true;
+        }
+      }
+    }
+
+    return data;
   }
 
   passwordValid(value:string):boolean{

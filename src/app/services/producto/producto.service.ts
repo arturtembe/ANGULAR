@@ -5,14 +5,27 @@ import { Producto } from '../../interfaces/Producto';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import endpoint from '../../helpers/endpoint.helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
 
-  private apiUrl_GET='http://localhost:3000/db/controllers/shoopee/productoController/getProductoAPI.php';
-  private apiUrl_POST='http://localhost:3000/db/controllers/shoopee/productoController/addProductoAPI.php';
+  private header_top = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "*/*",
+      "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+    }
+  }
+  private header_uthorization = {
+    headers:{
+      "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
+    }
+  }
+  //private apiUrl_GET='http://localhost:3000/db/controllers/shoopee/productoController/getProductoAPI.php';
+  //private apiUrl_POST='http://localhost:3000/db/controllers/shoopee/productoController/addProductoAPI.php';
   private apiUrl_EDIT='http://localhost:3000/db/controllers/shoopee/productoController/editProductoAPI.php';
   private apiUrl_DELETE='http://localhost:3000/db/controllers/shoopee/productoController/deleteProductoAPI.php';
   //private apiUrl_POST='http://localhost:3000/db/controllers/teste/api.php';
@@ -23,18 +36,18 @@ export class ProductoService {
     return this.http.post<Producto[]>(this.apiUrl_DELETE,producto)
   }
 
-  getAll():Observable<Producto[]>{
+  getAll():Observable<any>{
     
-    return this.http.get<Producto[]>(this.apiUrl_GET);
+    return this.http.get<any>(endpoint.productoView,this.header_uthorization);
   }
 
-  getItem(id:number):Observable<Producto[]>{
+  getItem(id:number):Observable<any>{
 
-    return this.http.get<Producto[]>(`${this.apiUrl_GET}?id=${id}`);
+    return this.http.get<any>(`${endpoint.productoView}?id=${id}`);
   }
 
   addItem(producto:any){
-      return this.http.post<Producto[]>(this.apiUrl_POST,producto);
+      return this.http.post<any>(endpoint.productoAdd,producto,this.header_top);
   }
   //EDIT
   editItem(producto:any){

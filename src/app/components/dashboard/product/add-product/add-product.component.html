@@ -32,6 +32,13 @@
             <div class="form-box">
                 <form [formGroup]="form" (submit)="addProducto()">
                     
+                    <app-boxmessage *ngIf="messageBox != ''" 
+                    (changeCloseBoxMessage)="onChangeCloseBoxMessage()"
+                    [tipoMessage]="tipoMessageBox"
+                    [message]="messageBox">
+
+                    </app-boxmessage>
+
                     <!-- DADOS -->
                     <div [ngClass]="{ 
                         'box': this.onOffTabeHeader.tab01 == true,
@@ -63,10 +70,9 @@
                         'box-tab': this.onOffTabeHeader.tab02 == false
                     }">
 
-
                         <div class="input-box">
                             <label>Preco de Compra</label>
-                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            <input type="number" min="1" formControlName="precoCompra" id="precoCompra"
                             placeholder="1.00"/>
                         </div>
                         

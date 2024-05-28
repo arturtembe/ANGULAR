@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../../services/producto/producto.service';
 import { Producto } from '../../../../interfaces/Producto';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -7,13 +7,14 @@ import { CategoriaService } from '../../../../services/categoria/categoria.servi
 import { ValidUser } from '../../../../helpers/validUser';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 import { ActivatedRoute } from '@angular/router';
+import { ValidForm } from '../../../../helpers/validForm';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss'
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit{
 
   dashboard="1";
   urlBack="";
@@ -27,10 +28,15 @@ export class AddProductComponent {
   categorias:Categoria[]=[];
   slug:string|null = ``;
 
+  // Message Box
+  tipoMessageBox:string = '';
+  messageBox:string = '';
+
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
               private userValid:ValidUser,
+              private validForm:ValidForm,
               private route:ActivatedRoute,
               private validSlugHelper:ValidSlugHelper){
 
@@ -55,9 +61,10 @@ export class AddProductComponent {
 
   ngOnInit():void{
 
-    this.form=this._formBuilder.group({
+    this.form = this._formBuilder.group({
       nome:[""],
-      precoVenda:[0],
+      precoCompra:[""],
+      precoVenda:[""],
       categoria:[0],
       filetoupload:[],
       desc:[""]
@@ -107,6 +114,11 @@ export class AddProductComponent {
     }
   }
 
+  onChangeCloseBoxMessage(){
+    this.messageBox = '';
+    this.tipoMessageBox = '';
+  }
+
   // End
 
   getCategoria():void{
@@ -122,30 +134,57 @@ export class AddProductComponent {
 
   addProducto():void{
     
+    // Compra
+    if(this.validForm.textValid(this.form.value.precoCompra)){
+      
+      this.messageBox = "O campo preco de compra nao prode estar vazia!";
+      //this.tipoMessageBox = "error";
+      this.tipoMessageBox = "success";
+      
+      return;
+    }
+    
+    if(this.validForm.numberValid(this.form.value.precoCompra)){
+      alert("O valor no campo preco de compra deve ser maior que 0!");
+      return;
+    }
+    // Venda
+    if(this.validForm.textValid(this.form.value.precoVenda)){
+      alert("O campo preco de venda nao prode estar vazia!");
+      return;
+    }
+    if(this.validForm.numberValid(this.form.value.precoVenda)){
+      alert("O valor no campo preco de venda deve ser maior que 0!");
+      return;
+    }
+    
+
+    alert(`Ola! Mundo`);
+    /*
     if(this.form.value.nome!="" && this.form.value.precoVenda>0
       && this.form.value.categoria>0 && this.form.value.filetoupload!=null
     ){
-
-      let dataForm:any=new FormData();
-      dataForm.append("nome",this.form.value.nome);
-      dataForm.append("precoVenda",this.form.value.precoVenda);
-      dataForm.append("categoria",this.form.value.categoria);
-      let dd:any=document.getElementById("filetoupload");
-      dataForm.append("filetoupload",dd.files[0]);
-      dataForm.append("desc",this.form.value.desc);
-      dataForm.append("idUser",`${1}`);
       
-      //console.log(Object.fromEntries(dataForm));
-      //console.log(this.form.value);
-        
+    }
+    */
+
+    //let dataForm:any=new FormData();
+      //dataForm.append("nome",this.form.value.nome);
+      //dataForm.append("precoVenda",this.form.value.precoVenda);
+      //dataForm.append("categoria",this.form.value.categoria);
+      //let dd:any=document.getElementById("filetoupload");
+      //dataForm.append("filetoupload",dd.files[0]);
+      //dataForm.append("desc",this.form.value.desc);
+      //dataForm.append("idUser",`${1}`);
+      /*
       this.productoService.addItem(dataForm).subscribe(data=>{
         let info:any[]=data;
         if(info[0].status==1){
           alert(info[0].msg);
         }
       });
-      
-    }
+      */
+
 
   }
 

@@ -14,7 +14,10 @@ const endpoint = {
     categoriaAdd: `${host}/categoria/add`,
     categoriaView: `${host}/categoria/view`,
     categoriaEdit: `${host}/categoria/edit`,
-    categoriaDelete: `${host}/categoria/delete`
+    categoriaDelete: `${host}/categoria/delete`,
+    // Producto
+    productoView: `${host}/producto/view`,
+    productoAdd: `${host}/producto/add`
 }
 
 export default endpoint;

@@ -64,7 +64,14 @@ export class ViewProductComponent {
 
   // API
   getProducto():void{
-    this.productoService.getAll().subscribe((productos)=>(this.productos=productos));
+    //this.productoService.getAll().subscribe((productos)=>(this.productos=productos));
+    this.productoService.getAll().subscribe((productos)=>{
+      
+      console.log(productos);
+
+    },error=>{
+      console.log(error.error);
+    });
   }
 
   getCategoria(id:number){

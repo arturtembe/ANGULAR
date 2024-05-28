@@ -1,0 +1,30 @@
+
+.message-box{
+    background-color: aqua;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.box-message-text{
+    font-size: 17px;
+    color: #fff;
+    font-weight: 700;
+}
+
+svg{
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    path{
+        fill: #fff;
+    }
+}
+
+// Tipo de message
+.box-success{
+    background-color: rgb(143, 203, 248);
+}
+.box-error{
+    background-color: rgb(255, 133, 133);
+}
