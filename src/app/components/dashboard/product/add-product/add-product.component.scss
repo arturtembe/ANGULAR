@@ -50,7 +50,7 @@ $d:#ddd;
                     outline: none;
                     background-color: $w;
                     font-size: 26px;
-
+                    
                     &:hover{
                         cursor: pointer;
                         color: $c_p_c;
@@ -58,6 +58,9 @@ $d:#ddd;
                     &.active{
                         color: $c_p;
                         border-bottom: 1px solid $c_p;
+                    }
+                    .in-active{
+                        color: $b_c;
                     }
                 }
             }
@@ -83,7 +86,8 @@ $d:#ddd;
                         font-size: 17px;
                         color: $b_c;
                     }
-                    & input{
+                    & input[type="text"],
+                    & input[type="number"]{
                         width: 95%;
                         padding: 15px 10px;
                         margin-top: 10px;
@@ -157,6 +161,24 @@ $d:#ddd;
                         font-size: 17px;
                     }
                 }
+
+                & fieldset{
+                    width: 100%;
+                    padding: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    & legend{
+                        padding: 0 20px;
+                        font-size: 19px;
+                        color: #333;
+                    }
+                }
+
+            }
+            & .box-tab{
+                display: none;
             }
         }
     }

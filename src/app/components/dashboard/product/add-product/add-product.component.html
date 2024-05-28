@@ -8,7 +8,23 @@
 
             <div class="header-wrapper">
                 <div class="header-tab">
-                    <button class="active">Dados</button>
+                    <button [ngClass]="{ 
+                        'active': this.onOffTabeHeader.tab01 == true,
+                        'in-active': this.onOffTabeHeader.tab01 == false
+                    }" (click)="onBtnTabHeader(1)">Dados</button>
+                    <button [ngClass]="{ 
+                        'active': this.onOffTabeHeader.tab02 == true,
+                        'in-active': this.onOffTabeHeader.tab02 == false
+                    }" (click)="onBtnTabHeader(2)">Preco</button>
+                    <button [ngClass]="{ 
+                        'active': this.onOffTabeHeader.tab03 == true,
+                        'in-active': this.onOffTabeHeader.tab03 == false
+                    }" (click)="onBtnTabHeader(3)">Quantidade</button>
+                    <button [ngClass]="{ 
+                        'active': this.onOffTabeHeader.tab04 == true,
+                        'in-active': this.onOffTabeHeader.tab04 == false
+                    }" (click)="onBtnTabHeader(4)">Image</button>
+                
                 </div>
             </div>
             <!-- Register -->
@@ -16,17 +32,15 @@
             <div class="form-box">
                 <form [formGroup]="form" (submit)="addProducto()">
                     
-                    <div class="box">
+                    <!-- DADOS -->
+                    <div [ngClass]="{ 
+                        'box': this.onOffTabeHeader.tab01 == true,
+                        'box-tab': this.onOffTabeHeader.tab01 == false
+                    }">
                         
                         <div class="input-box">
                             <label>Nome do Producto</label>
                             <input type="text" formControlName="nome" id="nome">
-                        </div>
-        
-                        <div class="input-box">
-                            <label>Preco de Venda</label>
-                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
-                            placeholder="1.00"/>
                         </div>
 
                         <div class="input-box">
@@ -37,15 +51,76 @@
                         </div>
 
                         <div class="input-box">
-                            <label>Image</label>
-                            <input type="file" formControlName="filetoupload" id="filetoupload"/>
-                        </div>
-
-                        <div class="input-box">
                             <label>Descricao</label>
                             <textarea formControlName="desc" id="desc"></textarea>
                         </div>
 
+                    </div>
+
+                    <!-- PRECO -->
+                    <div  [ngClass]="{ 
+                        'box': this.onOffTabeHeader.tab02 == true,
+                        'box-tab': this.onOffTabeHeader.tab02 == false
+                    }">
+
+
+                        <div class="input-box">
+                            <label>Preco de Compra</label>
+                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            placeholder="1.00"/>
+                        </div>
+                        
+                        <div class="input-box">
+                            <label>Preco de Venda</label>
+                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            placeholder="1.00"/>
+                        </div>
+
+                    </div>
+
+                    <!-- QUANTIDADE -->
+                    <div  [ngClass]="{ 
+                        'box': this.onOffTabeHeader.tab03 == true,
+                        'box-tab': this.onOffTabeHeader.tab03 == false
+                    }">
+
+                        <div class="input-box">
+                            <label>Quantidade</label>
+                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            placeholder="1.00"/>
+                        </div>
+
+                        <fieldset>
+                            <legend>Venda</legend>
+
+                            <div class="input-box">
+                                <label>Quantidade minima</label>
+                                <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                                placeholder="1.00"/>
+                            </div>
+                            
+                            <div class="input-box">
+                                <label>Quantidade maxima</label>
+                                <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                                placeholder="1.00"/>
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                    <!-- IMAGE -->
+                    <div  [ngClass]="{ 
+                        'box': this.onOffTabeHeader.tab04 == true,
+                        'box-tab': this.onOffTabeHeader.tab04 == false
+                    }">
+
+                        <app-imageupload style="width: 100%;"></app-imageupload>
+
+                    </div>
+
+                    <div class="box">
+                        
                         <div class="input-box">
                             <div class="controls">
                                 <button  type="reset" class="btn">Limpar</button>

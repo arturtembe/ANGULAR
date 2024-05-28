@@ -12,7 +12,8 @@ export class ViewDashboardComponent {
   
   dashboard="0";
 
-  categoriaRouter = `/dashboard/categoria`;
+  productRouter = ``;
+  categoriaRouter = ``;
   slug:string|null = ``;
 
   constructor(private userValid:ValidUser,
@@ -22,15 +23,11 @@ export class ViewDashboardComponent {
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
     
+    // LINKS
+    this.productRouter = `/${this.slug}/product`;
+    this.categoriaRouter = `/${this.slug}/categoria`;
+
     this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");   
-  }
-
-  productoHandle(){
-    location.href = `/${this.slug}/product`;
-  }
-
-  categoriaHandle(){
-    location.href = `/${this.slug}/categoria`;
   }
 
 }

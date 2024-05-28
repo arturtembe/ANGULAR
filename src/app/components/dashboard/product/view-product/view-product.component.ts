@@ -5,6 +5,8 @@ import { CategoriaService } from '../../../../services/categoria/categoria.servi
 import { ValidUser } from '../../../../helpers/validUser';
 import { Usuario } from '../../../../interfaces/Usuario';
 import { UsuarioService } from '../../../../services/usuario/usuario.service';
+import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-product',
@@ -14,18 +16,32 @@ import { UsuarioService } from '../../../../services/usuario/usuario.service';
 export class ViewProductComponent {
   
   dashboard="1";
-  urlBack="/dashboard";
+
+  urlBack="";
+  urlAddProduct="";
+
   token:string|null=sessionStorage.getItem("tknIdshoopee");
   
   productos:Producto[]=[];
   categoria!:string;
   data:Usuario[]=[];
+  slug:string|null = ``;
 
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
-    private userValid:ValidUser){
-      this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
-      this.getProducto();
+    private userValid:ValidUser,
+    private route:ActivatedRoute,
+    private validSlugHelper:ValidSlugHelper){
+
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+    
+    // LINKS
+    this.urlBack = `/${this.slug}`;
+    this.urlAddProduct = `/${this.slug}/product/add`;
+
+    this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
+    this.getProducto();
   }
 
   ngOnInit():void{

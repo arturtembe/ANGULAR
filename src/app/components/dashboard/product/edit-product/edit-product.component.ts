@@ -6,6 +6,7 @@ import { Categoria } from '../../../../interfaces/Categoria';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { ActivatedRoute } from '@angular/router';
 import { ValidUser } from '../../../../helpers/validUser';
+import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 
 @Component({
   selector: 'app-edit-product',
@@ -26,12 +27,21 @@ export class EditProductComponent {
   desc!:string;
   categorias:Categoria[]=[];
   id!:number;
+  slug:string|null = ``;
 
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
               private route:ActivatedRoute,
-              private userValid:ValidUser){
+              private userValid:ValidUser,
+              private validSlugHelper:ValidSlugHelper){
+
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+                            
+    // LINKS
+    this.urlBack = `/${this.slug}/product`;
+                    
     this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
     this.getProducto();
               

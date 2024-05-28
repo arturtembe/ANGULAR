@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Categoria } from '../../../../interfaces/Categoria';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { ValidUser } from '../../../../helpers/validUser';
+import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -14,19 +16,41 @@ import { ValidUser } from '../../../../helpers/validUser';
 export class AddProductComponent {
 
   dashboard="1";
-  urlBack="/dashboard/product";
+  urlBack="";
 
   form!:FormGroup;
 
+  // Tab Header
+  onOffTabeHeader:any = {};
+
   producto:Producto[]=[];
   categorias:Categoria[]=[];
+  slug:string|null = ``;
 
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
-              private userValid:ValidUser){
+              private userValid:ValidUser,
+              private route:ActivatedRoute,
+              private validSlugHelper:ValidSlugHelper){
+
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+                
+    // LINKS
+    this.urlBack = `/${this.slug}/product`;
+                
     this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
-              this.getCategoria();
+    this.getCategoria();
+
+    // VARIALVEL
+    this.onOffTabeHeader = {
+      tab01:true,
+      tab02:false,
+      tab03:false,
+      tab04:false,
+    };
+
   }
 
   ngOnInit():void{
@@ -41,8 +65,59 @@ export class AddProductComponent {
     
   }
 
+  // Star EVENT TAB
+
+  onBtnTabHeader(id:number){
+    switch (id) {
+      case 1:
+        this.onOffTabeHeader = {
+          tab01: true,
+          tab02: false,
+          tab03: false,
+          tab04: false,
+        };
+        break;
+      case 2:
+        this.onOffTabeHeader = {
+          tab01: false,
+          tab02: true,
+          tab03: false,
+          tab04: false
+        };
+        break;
+        case 3:
+          this.onOffTabeHeader = {
+            tab01: false,
+            tab02: false,
+            tab03: true,
+            tab04: false
+          };
+          break;
+          case 4:
+            this.onOffTabeHeader = {
+              tab01: false,
+              tab02: false,
+              tab03: false,
+              tab04: true
+            };
+            break;
+    
+      default:
+        break;
+    }
+  }
+
+  // End
+
   getCategoria():void{
-    this.categoriaService.getAll().subscribe((categorias)=>(this.categorias=categorias));
+    this.categoriaService.getAll().subscribe((data)=>{
+      
+      this.categorias = data.categorias;
+      //console.log(data);
+
+    },error=>{
+      console.log(error.error);
+    });
   }
 
   addProducto():void{

@@ -22,6 +22,9 @@ import { HeaderDashboardComponent } from './components/dashboard/header-dashboar
 import { VerifyComponent } from './components/verify/verify.component';
 import { SuccessComponent } from './components/message/success/success.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { ImageuploadComponent } from './components/imageupload/imageupload.component';
+import { ImageuploadDirective } from './directives/imageupload.directive';
+import { ProgressComponent } from './components/progress/progress.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     HeaderDashboardComponent,
     VerifyComponent,
     SuccessComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    ImageuploadComponent,
+    ImageuploadDirective,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,
