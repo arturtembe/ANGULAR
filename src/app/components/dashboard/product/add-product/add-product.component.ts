@@ -28,6 +28,8 @@ export class AddProductComponent implements OnInit{
   categorias:Categoria[]=[];
   slug:string|null = ``;
 
+  files: any[] = [];
+
   // Message Box
   tipoMessageBox:string = '';
   messageBox:string = '';
@@ -63,11 +65,17 @@ export class AddProductComponent implements OnInit{
 
     this.form = this._formBuilder.group({
       nome:[""],
+      categoria:[""],
+      desc:[""],
+      // Preco
       precoCompra:[""],
       precoVenda:[""],
-      categoria:[0],
+      // Quantidade
+      qntd:[""],
+      qntdMinima:[""],
+      qntdMaxima:[""],
+      // IMAGE
       filetoupload:[],
-      desc:[""]
     })
     
   }
@@ -132,59 +140,155 @@ export class AddProductComponent implements OnInit{
     });
   }
 
-  addProducto():void{
-    
+  validFields(){
+
+    // DADOS
+    // Nome
+    if(this.validForm.textValid(this.form.value.nome)){
+      this.messageBox = "O campo nome nao pode estar vazia!";
+      this.tipoMessageBox = "error";
+      return;
+    }
+    // Categoria
+    if(this.validForm.textValid(this.form.value.categoria)){
+      this.messageBox = "O campo categoria nao pode estar vazia!";
+      this.tipoMessageBox = "error";
+      return;
+    }
+
+    // PRECO
     // Compra
     if(this.validForm.textValid(this.form.value.precoCompra)){
       
-      this.messageBox = "O campo preco de compra nao prode estar vazia!";
-      //this.tipoMessageBox = "error";
-      this.tipoMessageBox = "success";
-      
+      this.messageBox = "O campo preco de compra nao pode estar vazia!";
+      this.tipoMessageBox = "error";
+      //this.tipoMessageBox = "success";
       return;
     }
     
     if(this.validForm.numberValid(this.form.value.precoCompra)){
-      alert("O valor no campo preco de compra deve ser maior que 0!");
+      this.messageBox = "O valor no campo preco de compra deve ser maior que 0!";
+      this.tipoMessageBox = "error";
       return;
     }
     // Venda
     if(this.validForm.textValid(this.form.value.precoVenda)){
-      alert("O campo preco de venda nao prode estar vazia!");
+      this.messageBox = "O campo preco de venda nao pode estar vazia!";
+      this.tipoMessageBox = "error";
       return;
     }
     if(this.validForm.numberValid(this.form.value.precoVenda)){
-      alert("O valor no campo preco de venda deve ser maior que 0!");
+      this.messageBox = "O valor no campo preco de venda deve ser maior que 0!";
+      this.tipoMessageBox = "error";
+      
+      return;
+    }
+
+    // QUANTIDADE
+    // Qntd
+    if(this.validForm.textValid(this.form.value.qntd)){
+      this.messageBox = "O campo quantidade nao pode estar vazia!";
+      this.tipoMessageBox = "error";
+      return;
+    }
+    if(this.validForm.numberValid_Qntd(this.form.value.qntd)){
+      this.messageBox = "O valor no campo quantidade deve ser maior que 0!";
+      this.tipoMessageBox = "error";
+      return;
+    }
+    // Qntd Minima
+    if(this.validForm.textValid(this.form.value.qntdMinima)){
+      this.form.value.qntdMinima = '1';
+    }
+    if(this.validForm.numberValid_Qntd(this.form.value.qntdMinima)){
+      this.messageBox = "O valor no campo quantidade minima deve ser maior que 0!";
+      this.tipoMessageBox = "error";
+      return;
+    }
+    // Qntd Maxima
+    if(this.validForm.textValid(this.form.value.qntdMaxima)){
+      this.form.value.qntdMaxima = '1';
+    }
+    if(this.validForm.numberValid_Qntd(this.form.value.qntdMaxima)){
+      this.messageBox = "O valor no campo quantidade maxima deve ser maior que 0!";
+      this.tipoMessageBox = "error";
       return;
     }
     
-
-    alert(`Ola! Mundo`);
-    /*
-    if(this.form.value.nome!="" && this.form.value.precoVenda>0
-      && this.form.value.categoria>0 && this.form.value.filetoupload!=null
-    ){
-      
+    // IMAGE
+    if(this.files.length<=0){
+      this.messageBox = "Deve ter pelo menos uma image selecionada!";
+      this.tipoMessageBox = "error";
+      return;
     }
-    */
 
-    //let dataForm:any=new FormData();
-      //dataForm.append("nome",this.form.value.nome);
-      //dataForm.append("precoVenda",this.form.value.precoVenda);
-      //dataForm.append("categoria",this.form.value.categoria);
+  }
+
+  addFileMessage($event:any){
+    //console.log($event);
+    this.files.push($event);
+  }
+  deleteFileMessage($event:number){
+    //console.log($event);
+    this.files.splice($event, 1);
+  }
+
+  messageFileMessage($event:string){
+    //console.log($event);
+    this.messageBox = $event;
+    this.tipoMessageBox = 'error';
+  }
+
+  addProducto():void{
+
+    this.validFields();
+
+    let dataForm:any = new FormData();
+      dataForm.append("nome",this.form.value.nome);
+      dataForm.append("categoria",this.form.value.categoria);
+      dataForm.append("desc",this.form.value.desc);
+      // Preco
+      dataForm.append("precoVenda",this.form.value.precoVenda);
+      dataForm.append("precoCompra",this.form.value.precoCompra);
+      // Qntd
+      dataForm.append("qntd",this.form.value.qntd);
+      dataForm.append("qntdMinima",this.form.value.qntdMinima);
+      dataForm.append("qntdMaxima",this.form.value.qntdMaxima);
+      
       //let dd:any=document.getElementById("filetoupload");
       //dataForm.append("filetoupload",dd.files[0]);
-      //dataForm.append("desc",this.form.value.desc);
       //dataForm.append("idUser",`${1}`);
-      /*
-      this.productoService.addItem(dataForm).subscribe(data=>{
-        let info:any[]=data;
-        if(info[0].status==1){
-          alert(info[0].msg);
-        }
-      });
-      */
+      
+      this.productoService.addItem(new URLSearchParams(dataForm)).subscribe(data=>{
+        
+        console.log(data);
 
+        let dataImage:any = new FormData();
+        //dataImage.append("id", data.producto.id);
+        //alert(data.producto[0]._id);
+        
+        // IMAGE
+        for(const file of this.files){
+          
+          dataImage.append("files", file, file.name);
+
+        }
+
+        this.productoService.addItemUpload(dataImage, data.producto[0]._id).subscribe(image=>{
+
+          console.log(image);
+
+        },error=>{
+          this.messageBox = "Houve um erro interno!";
+          this.tipoMessageBox = "error";
+          console.log(error.error);
+        });
+        
+      }, error=>{
+        this.messageBox = "Houve um erro interno!";
+        this.tipoMessageBox = "error";
+        console.log(error.error);
+      });
 
   }
 

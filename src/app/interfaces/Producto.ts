@@ -1,14 +1,23 @@
+import { Categoria } from "./Categoria";
+import { ProductoImage } from "./ProductoImage";
+import { ProductoPreco } from "./ProductoPreco";
+import { ProductoQntd } from "./ProductoQntd.interfaces";
+import { Usuario } from "./Usuario.interfaces";
 
 export interface Producto{
-    id:number,
-    nome:string;
-    precoVenda:number;
+    _id: string,
+    nome: string;
+    desc: string;
+    preco: ProductoPreco;
+    quantidade: ProductoQntd;
     idCat:number;
-    categoria:string,
+    categoria: Categoria,
     imageName:string;
-    descricao:string;
-    idUser:number,
-    data:string
+    images: ProductoImage;
+    user: Usuario,
+    dataRgt: string;
+    dataUpdt: string;
+
     status:number;
     msg:string;
 }

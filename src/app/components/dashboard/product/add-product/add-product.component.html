@@ -73,13 +73,13 @@
                         <div class="input-box">
                             <label>Preco de Compra</label>
                             <input type="number" min="1" formControlName="precoCompra" id="precoCompra"
-                            placeholder="1.00"/>
+                            placeholder="0.00"/>
                         </div>
                         
                         <div class="input-box">
                             <label>Preco de Venda</label>
                             <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
-                            placeholder="1.00"/>
+                            placeholder="0.00"/>
                         </div>
 
                     </div>
@@ -92,8 +92,8 @@
 
                         <div class="input-box">
                             <label>Quantidade</label>
-                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
-                            placeholder="1.00"/>
+                            <input type="number" min="1" formControlName="qntd" id="qntd"
+                            placeholder="0"/>
                         </div>
 
                         <fieldset>
@@ -101,14 +101,14 @@
 
                             <div class="input-box">
                                 <label>Quantidade minima</label>
-                                <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
-                                placeholder="1.00"/>
+                                <input type="number" min="1" formControlName="qntdMinima" id="qntdMinima"
+                                placeholder="1"/>
                             </div>
                             
                             <div class="input-box">
                                 <label>Quantidade maxima</label>
-                                <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
-                                placeholder="1.00"/>
+                                <input type="number" min="1" formControlName="qntdMaxima" id="qntdMaxima"
+                                placeholder="1"/>
                             </div>
 
                         </fieldset>
@@ -121,7 +121,10 @@
                         'box-tab': this.onOffTabeHeader.tab04 == false
                     }">
 
-                        <app-imageupload style="width: 100%;"></app-imageupload>
+                        <app-imageupload style="width: 100%;"
+                        (addFilesEvent)="addFileMessage($event)"
+                        (deleteFilesEvent)="deleteFileMessage($event)"
+                        (messageFilesEvent)="messageFileMessage($event)"></app-imageupload>
 
                     </div>
 

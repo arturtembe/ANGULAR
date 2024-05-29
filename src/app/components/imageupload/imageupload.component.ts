@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-imageupload',
@@ -10,18 +10,34 @@ export class ImageuploadComponent {
   @ViewChild("fileDropRef", { static: false }) fileDropEl!: ElementRef;
   files: any[] = [];
 
+  @Output() addFilesEvent = new EventEmitter<any>();
+  @Output() deleteFilesEvent = new EventEmitter<any>();
+  @Output() messageFilesEvent = new EventEmitter<string>();
+
+  //onOfVisible:boolean = true;
   /**
    * on file drop handler
    */
   onFileDropped($event:any) {
-    this.prepareFilesList($event);
+    //this.prepareFilesList($event);
+    if((this.files.length + $event.target.files.length)<=3){
+      this.prepareFilesList($event);
+    }
+    else{
+      this.messageFilesEvent.emit("O limite maximo e de 3 arquivos selecionados!");
+    }
   }
 
   /**
    * handle file from browsing
    */
   fileBrowseHandler(files:any) {
-    this.prepareFilesList(files.target.files);
+    if((this.files.length + files.target.files.length)<=3){
+      this.prepareFilesList(files.target.files);
+    }
+    else{
+      this.messageFilesEvent.emit("O limite maximo e de 3 arquivos selecionados!");
+    }
   }
 
   /**
@@ -34,6 +50,9 @@ export class ImageuploadComponent {
       return;
     }
     this.files.splice(index, 1);
+
+    this.deleteFilesEvent.emit(index);
+
   }
 
   /**
@@ -61,14 +80,17 @@ export class ImageuploadComponent {
    * @param files (Files List)
    */
   prepareFilesList(files: Array<any>) {
+    
     for (const item of files) {
-      console.log(item);
+      //console.log(item);
+    this.addFilesEvent.emit(item);
       
       item.progress = 0;
       this.files.push(item);
     }
     this.fileDropEl.nativeElement.value = "";
     this.uploadFilesSimulator(0);
+    
   }
 
   /**

@@ -27,13 +27,13 @@ export class ValidForm {
   }
 
   numberValid_Qntd(value:string|null):boolean{
-    let data:boolean =false;
+    let data:boolean = true;
     
     if(!this.textValid(value)){
       let num:number = parseInt(`${value}`);
       if(!isNaN(num)){
         if(num>0){
-          data = true;
+          data = false;
         }
       }
     }
