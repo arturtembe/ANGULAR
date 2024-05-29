@@ -34,6 +34,10 @@ export class AddProductComponent implements OnInit{
   tipoMessageBox:string = '';
   messageBox:string = '';
 
+  // Loader
+  loaderCircle:boolean = false;
+  loaderButton:boolean = false;
+
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
@@ -239,9 +243,16 @@ export class AddProductComponent implements OnInit{
     this.tipoMessageBox = 'error';
   }
 
+  progressFileMessage($event:boolean){
+    //console.log($event);
+    this.loaderButton = $event;
+  }
+
   addProducto():void{
 
     this.validFields();
+
+    this.loaderCircle = true;
 
     let dataForm:any = new FormData();
       dataForm.append("nome",this.form.value.nome);
@@ -261,7 +272,7 @@ export class AddProductComponent implements OnInit{
       
       this.productoService.addItem(new URLSearchParams(dataForm)).subscribe(data=>{
         
-        console.log(data);
+        //console.log(data);
 
         let dataImage:any = new FormData();
         //dataImage.append("id", data.producto.id);
@@ -276,18 +287,25 @@ export class AddProductComponent implements OnInit{
 
         this.productoService.addItemUpload(dataImage, data.producto[0]._id).subscribe(image=>{
 
-          console.log(image);
+          //console.log(image);
+          this.loaderCircle = false;
+          //location.href = `/${this.slug}/product`;
+          this.messageBox = `O producto registado com sucesso`;
+          this.tipoMessageBox = "success";
 
         },error=>{
-          this.messageBox = "Houve um erro interno!";
+          this.messageBox = `${error.error.message}`;
           this.tipoMessageBox = "error";
           console.log(error.error);
+          this.loaderCircle = false;
         });
         
       }, error=>{
-        this.messageBox = "Houve um erro interno!";
+        this.messageBox = `${error.error.message}`;
+        //this.messageBox = "Houve um erro interno!";
         this.tipoMessageBox = "error";
         console.log(error.error);
+        this.loaderCircle = false;
       });
 
   }

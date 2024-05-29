@@ -26,6 +26,10 @@ import { ImageuploadComponent } from './components/imageupload/imageupload.compo
 import { ImageuploadDirective } from './directives/imageupload.directive';
 import { ProgressComponent } from './components/progress/progress.component';
 import { BoxmessageComponent } from './components/message/boxmessage/boxmessage.component';
+import { CirleLoaderComponent } from './components/loader/cirle-loader/cirle-loader.component';
+import { ButtonLoaderComponent } from './components/loader/button-loader/button-loader.component';
+import { ImgUploadAddComponent } from './components/upload/product/img-upload-add/img-upload-add.component';
+import { ImgUploadEditComponent } from './components/upload/product/img-upload-edit/img-upload-edit.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,11 @@ import { BoxmessageComponent } from './components/message/boxmessage/boxmessage.
     ImageuploadComponent,
     ImageuploadDirective,
     ProgressComponent,
-    BoxmessageComponent
+    BoxmessageComponent,
+    CirleLoaderComponent,
+    ButtonLoaderComponent,
+    ImgUploadAddComponent,
+    ImgUploadEditComponent
   ],
   imports: [
     BrowserModule,

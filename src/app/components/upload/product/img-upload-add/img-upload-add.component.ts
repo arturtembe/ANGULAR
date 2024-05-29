@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-imageupload',
-  templateUrl: './imageupload.component.html',
-  styleUrl: './imageupload.component.scss'
+  selector: 'app-img-upload-add',
+  templateUrl: './img-upload-add.component.html',
+  styleUrl: './img-upload-add.component.scss'
 })
-export class ImageuploadComponent {
+export class ImgUploadAddComponent {
 
   @ViewChild("fileDropRef", { static: false }) fileDropEl!: ElementRef;
   files: any[] = [];

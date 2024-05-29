@@ -121,14 +121,15 @@
                         'box-tab': this.onOffTabeHeader.tab04 == false
                     }">
 
-                        <app-imageupload style="width: 100%;"
+                        <app-img-upload-add style="width: 100%;"
                         (addFilesEvent)="addFileMessage($event)"
                         (deleteFilesEvent)="deleteFileMessage($event)"
-                        (messageFilesEvent)="messageFileMessage($event)"></app-imageupload>
+                        (messageFilesEvent)="messageFileMessage($event)"
+                        (progressFilesEvent)="progressFileMessage($event)"></app-img-upload-add>
 
                     </div>
 
-                    <div class="box">
+                    <div class="box" *ngIf="!loaderButton">
                         
                         <div class="input-box">
                             <div class="controls">
@@ -138,11 +139,26 @@
                         </div>
 
                     </div>
+
+
+                    <div class="box" *ngIf="loaderButton">
+                        
+                        <div class="input-box">
+                            <div class="controls">
+                                <button  type="reset" class="btn-loader">
+                                    <app-button-loader></app-button-loader>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                     
                 </form>
             </div>
 
         </div>
+
+        <app-cirle-loader *ngIf="loaderCircle"></app-cirle-loader>
 
     </section>
 </div>

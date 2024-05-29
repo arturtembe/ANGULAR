@@ -184,3 +184,14 @@ $d:#ddd;
     }
 
 }
+
+// LOADER
+.btn-loader{
+    position: relative;
+    background-color: #2e84c6;
+    padding: 20px 30px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: not-allowed;
+}
