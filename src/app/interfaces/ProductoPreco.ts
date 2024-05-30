@@ -1,6 +1,6 @@
 
 export interface ProductoPreco{
-    _id: string,
+    id: string,
     precoCompra: number;
     precoVenda: number;
     

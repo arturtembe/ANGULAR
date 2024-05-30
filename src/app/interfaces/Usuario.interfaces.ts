@@ -1,6 +1,6 @@
 
 export interface Usuario{
-    _id: string;
+    id: string;
     username: string;
     slug: string;
     email: string;

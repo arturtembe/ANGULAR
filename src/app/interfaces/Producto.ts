@@ -5,7 +5,7 @@ import { ProductoQntd } from "./ProductoQntd.interfaces";
 import { Usuario } from "./Usuario.interfaces";
 
 export interface Producto{
-    _id: string,
+    id: string,
     nome: string;
     desc: string;
     preco: ProductoPreco;

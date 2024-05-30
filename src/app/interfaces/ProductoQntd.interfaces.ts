@@ -4,7 +4,7 @@ import { ProductoPreco } from "./ProductoPreco";
 import { Usuario } from "./Usuario.interfaces";
 
 export interface ProductoQntd{
-    _id:string;
+    id:string;
     qntd:number;
     qntdMinima:number;
     qntdMaxima:number;

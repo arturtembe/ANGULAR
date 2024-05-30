@@ -48,9 +48,9 @@ export class ProductoService {
     return this.http.get<any>(endpoint.productoView,this.header_uthorization);
   }
 
-  getItem(id:number):Observable<any>{
+  getItem(id:any):Observable<any>{
 
-    return this.http.get<any>(`${endpoint.productoView}?id=${id}`);
+    return this.http.get<any>(`${endpoint.productoView}/${id}`,this.header_uthorization);
   }
 
   addItem(producto:any){

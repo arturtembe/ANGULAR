@@ -1,6 +1,6 @@
 
 export interface ProductoImage{
-    _id: string,
+    id: string,
     nome: string;
     url: string;
     dataRgt: string;

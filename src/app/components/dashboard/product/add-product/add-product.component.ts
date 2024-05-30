@@ -250,6 +250,7 @@ export class AddProductComponent implements OnInit{
 
   addProducto():void{
 
+    
     this.validFields();
 
     this.loaderCircle = true;
@@ -300,9 +301,10 @@ export class AddProductComponent implements OnInit{
           this.loaderCircle = false;
         });
         
+        
       }, error=>{
-        this.messageBox = `${error.error.message}`;
-        //this.messageBox = "Houve um erro interno!";
+        //this.messageBox = `${error.error.message}`;
+        this.messageBox = "Houve um erro interno!";
         this.tipoMessageBox = "error";
         console.log(error.error);
         this.loaderCircle = false;

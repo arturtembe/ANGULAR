@@ -8,6 +8,7 @@ import { ValidUser } from '../../../../helpers/validUser';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 import { ActivatedRoute } from '@angular/router';
 import { ValidForm } from '../../../../helpers/validForm';
+import { ValidIDHelper } from '../../../../helpers/validID.helpers';
 
 @Component({
   selector: 'app-edit-product',
@@ -25,8 +26,11 @@ export class EditProductComponent implements OnInit{
   onOffTabeHeader:any = {};
 
   producto:Producto[]=[];
+  allProducto!:any;
   categorias:Categoria[]=[];
+
   slug:string|null = ``;
+  id:string|null = ``;
 
   files: any[] = [];
 
@@ -44,31 +48,52 @@ export class EditProductComponent implements OnInit{
               private userValid:ValidUser,
               private validForm:ValidForm,
               private route:ActivatedRoute,
-              private validSlugHelper:ValidSlugHelper){
+              private validSlugHelper:ValidSlugHelper,
+              private validIDHelper: ValidIDHelper){
 
-                this.validSlugHelper.verifySlug(route);
-                this.slug = this.route.snapshot.paramMap.get("slug");
+    this.validSlugHelper.verifySlug(route);
+    this.slug = this.route.snapshot.paramMap.get("slug");
+    
+    this.validIDHelper.verifyIDProduct(route);
+    this.id = route.snapshot.paramMap.get("id");
+    
+    // LINKS
+    this.urlBack = `/${this.slug}/product`;
                             
-                // LINKS
-                this.urlBack = `/${this.slug}/product`;
-                            
-                this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
+    this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
                 
-                this.getCategoria();
-            
-                // VARIALVEL
-                this.onOffTabeHeader = {
-                  tab01:true,
-                  tab02:false,
-                  tab03:false,
-                  tab04:false,
-                };
-          
+    // VARIALVEL
+    this.onOffTabeHeader = {
+      tab01:true,
+      tab02:false,
+      tab03:false,
+      tab04:false,
+    };
+
+    this.allProducto = {
+      nome:"",
+      categoria:"",
+      desc:"",
+      // Preco
+      precoCompra: "",
+      precoVenda: "",
+      // Quantidade
+      qntd: "",
+      qntdMinima: "",
+      qntdMaxima: "",
+      // IMAGE
+      filetoupload: []
+    };
+
   }
 
 
   ngOnInit():void{
 
+    // GETS
+    this.getCategoria();
+    this.getProductID();
+    
     this.form = this._formBuilder.group({
       nome:[""],
       categoria:[""],
@@ -82,7 +107,7 @@ export class EditProductComponent implements OnInit{
       qntdMaxima:[""],
       // IMAGE
       filetoupload:[],
-    })
+    });
     
   }
 
@@ -134,17 +159,6 @@ export class EditProductComponent implements OnInit{
   }
 
   // End
-
-  getCategoria():void{
-    this.categoriaService.getAll().subscribe((data)=>{
-      
-      this.categorias = data.categorias;
-      //console.log(data);
-
-    },error=>{
-      console.log(error.error);
-    });
-  }
 
   validFields(){
 
@@ -248,6 +262,49 @@ export class EditProductComponent implements OnInit{
   progressFileMessage($event:boolean){
     //console.log($event);
     this.loaderButton = $event;
+  }
+
+  // GET PRODUCT
+  getCategoria():void{
+    this.categoriaService.getAll().subscribe((data)=>{
+      
+      this.categorias = data.categorias;
+      //console.log(data);
+
+    },error=>{
+      console.log(error.error);
+    });
+  }
+  getProductID(){
+    
+    this.productoService.getItem(this.id).subscribe(
+        data=>{
+            console.log(data);
+            
+            this.allProducto = {
+              nome: data.dados.nome,
+              categoria: data.dados.categoria,
+              desc: data.dados.desc,
+              // Preco
+              precoCompra: data.dados.preco.precoCompra,
+              precoVenda: data.dados.preco.precoVenda,
+              // Quantidade
+              qntd: data.dados.quantidade.qntd,
+              qntdMinima: data.dados.quantidade.qntdMinima,
+              qntdMaxima: data.dados.quantidade.qntdMaxima,
+              // IMAGE
+              filetoupload: data.images
+            };
+            
+        },
+        error=>{
+          this.messageBox = "Houve um erro interno! Porfavor actualize a pagina";
+          this.tipoMessageBox = "error";
+          //location.href =  `/${this.slug}/product`;
+          console.log(error.error);
+        }
+    );
+
   }
 
   editProducto():void{

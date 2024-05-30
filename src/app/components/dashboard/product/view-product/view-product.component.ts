@@ -51,13 +51,14 @@ export class ViewProductComponent {
   removeProducto(prod:Producto):void{
     
     let formData:any = new FormData()
-    formData.append("idDado",prod._id);
-    formData.append("idPreco",prod.preco._id);
-    formData.append("idQntd",prod.quantidade._id);
+    formData.append("idDado",prod.id);
+    formData.append("idPreco",prod.preco.id);
+    formData.append("idQntd",prod.quantidade.id);
 
     this.productoService.remove(new URLSearchParams(formData)).subscribe(
       data=>{
-        console.log(data);
+        //console.log(data);
+        this.productos = this.productos.filter((a)=>prod.id!==a.id);
       },
       error=>{
         console.log(error.error);
