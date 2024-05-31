@@ -125,7 +125,9 @@
                         (addFilesEvent)="addFileMessage($event)"
                         (deleteFilesEvent)="deleteFileMessage($event)"
                         (messageFilesEvent)="messageFileMessage($event)"
-                        (progressFilesEvent)="progressFileMessage($event)">
+                        (progressFilesEvent)="progressFileMessage($event)"
+                        (visualizaLocalFilesEvent)="visualizarFileLocal($event)"
+                        >
                         </app-img-upload-add>
 
                     </div>
@@ -160,6 +162,13 @@
         </div>
 
         <app-cirle-loader *ngIf="loaderCircle"></app-cirle-loader>
+
+        <!-- ==== Visualizador de IMG == -->
+        <app-local-image *ngIf="visualizador_img_local"
+        (onCloseVisualizador)="onChangeCloseVisualizador()"
+        [url]="url_img_local"
+        [title]="title_img_local">
+        </app-local-image>
 
     </section>
 </div>

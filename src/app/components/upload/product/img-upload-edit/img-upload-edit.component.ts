@@ -18,14 +18,19 @@ export class ImgUploadEditComponent {
   @Output() deleteFilesEvent = new EventEmitter<any>();
   @Output() messageFilesEvent = new EventEmitter<string>();
   @Output() progressFilesEvent = new EventEmitter<boolean>();
+  @Output() visualizaLocalFilesEvent = new EventEmitter<any>();
+  @Output() visualizaWebFilesEvent = new EventEmitter<any>();
+  @Output() filesUpdtDeleteEvent = new EventEmitter<any>();
 
-  //onOfVisible:boolean = true;
+  onProgressVisible:boolean = false;
   /**
    * on file drop handler
    */
   onFileDropped($event:any) {
     //this.prepareFilesList($event);
     if((this.files.length + $event.target.files.length)<=3){
+      
+      this.onProgressVisible = true;
       
       this.progressFilesEvent.emit(true);
       
@@ -45,6 +50,7 @@ export class ImgUploadEditComponent {
       + this.filesUpdt.length
     )<=3){
       
+      this.onProgressVisible = true;
       this.progressFilesEvent.emit(true);
       this.prepareFilesList(files.target.files);
       
@@ -72,11 +78,13 @@ export class ImgUploadEditComponent {
 
   }
 
-  deleteFileUpdt(index: number) {
+  deleteFileUpdt(index: number,file:any) {
 
-    this.filesUpdt.splice(index, 1);
+    //console.log(index);
+    
+    //this.filesUpdt.splice(index, 1);
 
-    //this.deleteFilesEvent.emit(index);
+    this.filesUpdtDeleteEvent.emit({index: index,file:file});
 
   }
 
@@ -90,6 +98,8 @@ export class ImgUploadEditComponent {
         this.limiteFiles = this.files.length;
 
         this.progressFilesEvent.emit(false);
+
+        this.onProgressVisible = false;
 
         return;
       } else {
@@ -137,6 +147,21 @@ export class ImgUploadEditComponent {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+  // Visualizar
+  visualizaFileLocal(file:any){
+    if(this.onProgressVisible){
+      this.messageFilesEvent.emit("Upload in progress!");
+      return  
+    }
+
+    this.visualizaLocalFilesEvent.emit(file);
+  }
+  // Visualizar
+  visualizaFileWeb(file:any){
+    this.visualizaWebFilesEvent.emit(file);
+    //console.log(file);
   }
 
 }

@@ -30,7 +30,7 @@
             <!-- Register -->
 
             <div class="form-box">
-                <form [formGroup]="form" (submit)="editProducto()">
+                <form (submit)="editProducto()">
                     
                     <app-boxmessage *ngIf="messageBox != ''" 
                     (changeCloseBoxMessage)="onChangeCloseBoxMessage()"
@@ -47,22 +47,22 @@
                         
                         <div class="input-box">
                             <label>Nome do Producto</label>
-                            <input type="text" formControlName="nome" id="nome"
+                            <input type="text" [(ngModel)]="allProducto.nome" name="nome" id="nome"
                             value="{{ allProducto.nome }}">
                         </div>
 
                         <div class="input-box">
                             <label>Categoria</label>
-                            <select formControlName="categoria" id="categoria"
-                            value="{{ allProducto.categoria }}">
+                            <select [(ngModel)]="allProducto.categoria" id="categoria"
+                            name="categoria" value="{{ allProducto.categoria }}">
                                 <option *ngFor="let cat of categorias" value="{{ cat.id }}">{{ cat.categoria }}</option>
                             </select>
                         </div>
 
                         <div class="input-box">
                             <label>Descricao</label>
-                            <textarea formControlName="desc" id="desc">
-                                value="{{ allProducto.desc }}"
+                            <textarea [(ngModel)]="allProducto.desc" id="desc" name="desc">
+                                {{ allProducto.desc }}
                             </textarea>
                         </div>
 
@@ -76,13 +76,14 @@
 
                         <div class="input-box">
                             <label>Preco de Compra</label>
-                            <input type="number" min="1" formControlName="precoCompra" id="precoCompra"
+                            <input type="number" min="1" [(ngModel)]="allProducto.precoCompra" name="precoCompra" id="precoCompra"
                             placeholder="0.00" value="{{ allProducto.precoCompra }}"/>
                         </div>
                         
                         <div class="input-box">
                             <label>Preco de Venda</label>
-                            <input type="number" min="1" formControlName="precoVenda" id="precoVenda"
+                            <input type="number" min="1" [(ngModel)]="allProducto.precoVenda" id="precoVenda"
+                            name="precoVenda"
                             placeholder="0.00" value="{{ allProducto.precoVenda }}"/>
                         </div>
 
@@ -96,7 +97,7 @@
 
                         <div class="input-box">
                             <label>Quantidade</label>
-                            <input type="number" min="1" formControlName="qntd" id="qntd"
+                            <input type="number" min="1" [(ngModel)]="allProducto.qntd" name="qntd" id="qntd"
                             placeholder="0" value="{{ allProducto.qntd }}"/>
                         </div>
 
@@ -105,13 +106,13 @@
 
                             <div class="input-box">
                                 <label>Quantidade minima</label>
-                                <input type="number" min="1" formControlName="qntdMinima" id="qntdMinima"
+                                <input type="number" min="1" [(ngModel)]="allProducto.qntdMinima" name="[qntdMinima]" id="qntdMinima"
                                 placeholder="1" value="{{ allProducto.qntdMinima }}"/>
                             </div>
                             
                             <div class="input-box">
                                 <label>Quantidade maxima</label>
-                                <input type="number" min="1" formControlName="qntdMaxima" id="qntdMaxima"
+                                <input type="number" min="1" [(ngModel)]="allProducto.qntdMaxima" name="qntdMaxima" id="qntdMaxima"
                                 placeholder="1" value="{{ allProducto.qntdMaxima }}"/>
                             </div>
 
@@ -131,6 +132,9 @@
                         (messageFilesEvent)="messageFileMessage($event)"
                         (progressFilesEvent)="progressFileMessage($event)"
                         [filesUpdt]="allProducto.filetoupload"
+                        (visualizaLocalFilesEvent)="visualizarFileLocal($event)"
+                        (visualizaWebFilesEvent)="visualizarFileWebOnline($event)"
+                        (filesUpdtDeleteEvent)="deleteFile_Update_Message($event)"
                         >
                         </app-img-upload-edit>
 
@@ -165,7 +169,15 @@
 
         </div>
 
+        <!-- ===== LOADER ======= -->
         <app-cirle-loader *ngIf="loaderCircle"></app-cirle-loader>
+
+        <!-- ==== Visualizador de IMG == -->
+        <app-local-image *ngIf="visualizador_img_local"
+        (onCloseVisualizador)="onChangeCloseVisualizador()"
+        [url]="url_img_local"
+        [title]="title_img_local">
+        </app-local-image>
 
     </section>
 </div>

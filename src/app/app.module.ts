@@ -30,6 +30,7 @@ import { CirleLoaderComponent } from './components/loader/cirle-loader/cirle-loa
 import { ButtonLoaderComponent } from './components/loader/button-loader/button-loader.component';
 import { ImgUploadAddComponent } from './components/upload/product/img-upload-add/img-upload-add.component';
 import { ImgUploadEditComponent } from './components/upload/product/img-upload-edit/img-upload-edit.component';
+import { LocalImageComponent } from './components/upload/visualizador/image/local-image/local-image.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ImgUploadEditComponent } from './components/upload/product/img-upload-e
     CirleLoaderComponent,
     ButtonLoaderComponent,
     ImgUploadAddComponent,
-    ImgUploadEditComponent
+    ImgUploadEditComponent,
+    LocalImageComponent
   ],
   imports: [
     BrowserModule,

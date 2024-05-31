@@ -31,11 +31,6 @@ export class ProductoService {
       "Authorization": `Bearer ${sessionStorage.getItem("tokenGTask")}`
     }
   }
-  //private apiUrl_GET='http://localhost:3000/db/controllers/shoopee/productoController/getProductoAPI.php';
-  //private apiUrl_POST='http://localhost:3000/db/controllers/shoopee/productoController/addProductoAPI.php';
-  private apiUrl_EDIT='http://localhost:3000/db/controllers/shoopee/productoController/editProductoAPI.php';
-  //private apiUrl_DELETE='http://localhost:3000/db/controllers/shoopee/productoController/deleteProductoAPI.php';
-  //private apiUrl_POST='http://localhost:3000/db/controllers/teste/api.php';
 
   constructor(private http:HttpClient) { }
 
@@ -56,12 +51,17 @@ export class ProductoService {
   addItem(producto:any){
       return this.http.post<any>(endpoint.productoAdd,producto,this.header_urlencoded);
   }
-  addItemUpload(producto:any,id:string){
+  //EDIT
+  editItem(producto:any,id:any){
+    return this.http.post<any>(`${endpoint.productoEdit}/${id}`,producto, this.header_urlencoded);
+  }
+
+  // Upload
+  addItemUpload(producto:any,id:any){
     return this.http.post<any>(`${endpoint.productoAddUpload}/${id}`,producto,this.header_top);
   }
-  //EDIT
-  editItem(producto:any){
-    return this.http.post<Producto[]>(this.apiUrl_EDIT,producto);
+  deleteItemUpload(producto:any){
+    return this.http.post<any>(endpoint.productoDeleteUpload,producto,this.header_urlencoded);
   }
 
 }

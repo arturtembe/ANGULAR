@@ -17,8 +17,9 @@ export class ImgUploadAddComponent {
   @Output() deleteFilesEvent = new EventEmitter<any>();
   @Output() messageFilesEvent = new EventEmitter<string>();
   @Output() progressFilesEvent = new EventEmitter<boolean>();
-
-  //onOfVisible:boolean = true;
+  @Output() visualizaLocalFilesEvent = new EventEmitter<any>();
+  
+  onProgressVisible:boolean = false;
   /**
    * on file drop handler
    */
@@ -26,6 +27,8 @@ export class ImgUploadAddComponent {
     //this.prepareFilesList($event);
     if((this.files.length + $event.target.files.length)<=3){
       
+      this.onProgressVisible = true;
+
       this.progressFilesEvent.emit(true);
       
       this.prepareFilesList($event);
@@ -42,6 +45,7 @@ export class ImgUploadAddComponent {
   fileBrowseHandler(files:any) {
     if((this.files.length + files.target.files.length)<=3){
       
+      this.onProgressVisible = true;
       this.progressFilesEvent.emit(true);
       this.prepareFilesList(files.target.files);
       
@@ -79,6 +83,8 @@ export class ImgUploadAddComponent {
         this.limiteFiles = this.files.length;
 
         this.progressFilesEvent.emit(false);
+
+        this.onProgressVisible = false;
 
         return;
       } else {
@@ -126,6 +132,16 @@ export class ImgUploadAddComponent {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+  // Visualizar
+  visualizaFileLocal(file:any){
+    if(this.onProgressVisible){
+      this.messageFilesEvent.emit("Upload in progress!");
+      return  
+    }
+
+    this.visualizaLocalFilesEvent.emit(file);
   }
 
 }

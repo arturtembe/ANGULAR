@@ -38,6 +38,11 @@ export class AddProductComponent implements OnInit{
   loaderCircle:boolean = false;
   loaderButton:boolean = false;
 
+  // Visualizador
+  visualizador_img_local:boolean = false;
+  url_img_local:string = ``;
+  title_img_local:string = ``;
+
   constructor(private productoService:ProductoService,
     private categoriaService:CategoriaService,
               private _formBuilder:FormBuilder,
@@ -131,6 +136,10 @@ export class AddProductComponent implements OnInit{
     this.tipoMessageBox = '';
   }
 
+  onChangeCloseVisualizador(){
+    this.visualizador_img_local = !this.visualizador_img_local;
+  }
+
   // End
 
   getCategoria():void{
@@ -144,7 +153,33 @@ export class AddProductComponent implements OnInit{
     });
   }
 
-  validFields(){
+  addFileMessage($event:any){
+    //console.log($event);
+    this.files.push($event);
+  }
+  deleteFileMessage($event:number){
+    //console.log($event);
+    this.files.splice($event, 1);
+  }
+
+  messageFileMessage($event:string){
+    //console.log($event);
+    this.messageBox = $event;
+    this.tipoMessageBox = 'error';
+  }
+
+  progressFileMessage($event:boolean){
+    //console.log($event);
+    this.loaderButton = $event;
+  }
+
+  visualizarFileLocal($event:any){
+    this.title_img_local = $event.name;
+    this.url_img_local = URL.createObjectURL($event);
+    this.visualizador_img_local = true;
+  }
+
+  addProducto():void{
 
     // DADOS
     // Nome
@@ -226,32 +261,6 @@ export class AddProductComponent implements OnInit{
       return;
     }
 
-  }
-
-  addFileMessage($event:any){
-    //console.log($event);
-    this.files.push($event);
-  }
-  deleteFileMessage($event:number){
-    //console.log($event);
-    this.files.splice($event, 1);
-  }
-
-  messageFileMessage($event:string){
-    //console.log($event);
-    this.messageBox = $event;
-    this.tipoMessageBox = 'error';
-  }
-
-  progressFileMessage($event:boolean){
-    //console.log($event);
-    this.loaderButton = $event;
-  }
-
-  addProducto():void{
-
-    
-    this.validFields();
 
     this.loaderCircle = true;
 
