@@ -8,6 +8,7 @@ import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 import { ActivatedRoute } from '@angular/router';
 import { ValidForm } from '../../../../helpers/validForm';
 import { ValidIDHelper } from '../../../../helpers/validID.helpers';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-product',
@@ -53,7 +54,8 @@ export class EditProductComponent implements OnInit{
               private validForm:ValidForm,
               private route:ActivatedRoute,
               private validSlugHelper:ValidSlugHelper,
-              private validIDHelper: ValidIDHelper){
+              private validIDHelper: ValidIDHelper,
+              private titleService: Title){
 
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -93,6 +95,8 @@ export class EditProductComponent implements OnInit{
 
 
   ngOnInit():void{
+
+    this.titleService.setTitle(`Edit Product - Shopee`);
 
     // GETS
     this.getCategoria();

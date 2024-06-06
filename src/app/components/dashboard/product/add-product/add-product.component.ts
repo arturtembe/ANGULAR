@@ -8,6 +8,7 @@ import { ValidUser } from '../../../../helpers/validUser';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 import { ActivatedRoute } from '@angular/router';
 import { ValidForm } from '../../../../helpers/validForm';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-product',
@@ -49,7 +50,8 @@ export class AddProductComponent implements OnInit{
               private userValid:ValidUser,
               private validForm:ValidForm,
               private route:ActivatedRoute,
-              private validSlugHelper:ValidSlugHelper){
+              private validSlugHelper:ValidSlugHelper,
+              private titleService: Title){
 
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -71,6 +73,8 @@ export class AddProductComponent implements OnInit{
   }
 
   ngOnInit():void{
+
+    this.titleService.setTitle(`Add Product - Shopee`);
 
     this.form = this._formBuilder.group({
       nome:[""],

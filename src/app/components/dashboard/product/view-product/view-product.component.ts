@@ -6,6 +6,7 @@ import { ValidUser } from '../../../../helpers/validUser';
 import { Usuario } from '../../../../interfaces/Usuario';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-product',
@@ -30,7 +31,8 @@ export class ViewProductComponent {
   constructor(private productoService:ProductoService,
     private userValid:ValidUser,
     private route:ActivatedRoute,
-    private validSlugHelper:ValidSlugHelper){
+    private validSlugHelper:ValidSlugHelper,
+    private titleService: Title){
 
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -45,7 +47,7 @@ export class ViewProductComponent {
   }
 
   ngOnInit():void{
-  
+    this.titleService.setTitle(`All Product - Shopee`);
   }
 
   removeProducto(prod:Producto):void{

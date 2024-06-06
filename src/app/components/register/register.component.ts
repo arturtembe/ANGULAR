@@ -4,6 +4,7 @@ import { Usuario } from '../../interfaces/Usuario';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { ValidForm } from '../../helpers/validForm';
 import { ValidUser } from '../../helpers/validUser';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -19,11 +20,16 @@ export class RegisterComponent {
   constructor(private usuarioService:UsuarioService,
             private _formBuilder:FormBuilder,
             private valid:ValidForm,
-            private userValid:ValidUser){
+            private userValid:ValidUser,
+            private titleService: Title){
               this.userValid.validOnOFF()&&(this.userValid.userValid_Login());
   }
 
   ngOnInit():void{
+    
+    // Title
+    this.titleService.setTitle("Register");
+
     this.form=this._formBuilder.group({
       username:[""],
       email:[""],

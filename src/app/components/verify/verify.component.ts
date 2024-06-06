@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../services/usuario/usuario.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verify',
@@ -17,8 +18,12 @@ export class VerifyComponent {
   slug?:string|null;
 
   constructor(private route:ActivatedRoute,
-    private usuarioService:UsuarioService){
+    private usuarioService:UsuarioService,
+    private titleService: Title){
     this.verifySLUG();
+
+    // Title
+    this.titleService.setTitle("Verify")
   }
 
 

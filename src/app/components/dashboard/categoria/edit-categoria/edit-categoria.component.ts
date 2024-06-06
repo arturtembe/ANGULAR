@@ -5,6 +5,7 @@ import { CategoriaService } from '../../../../services/categoria/categoria.servi
 import { ActivatedRoute } from '@angular/router';
 import { ValidUser } from '../../../../helpers/validUser';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-categoria',
@@ -25,7 +26,8 @@ export class EditCategoriaComponent {
               private _formBuilder:FormBuilder,
               private route:ActivatedRoute,
               private userValid:ValidUser,
-              private validSlugHelper:ValidSlugHelper){
+              private validSlugHelper:ValidSlugHelper,
+              private titleService: Title){
     // SLUG USER
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -43,6 +45,9 @@ export class EditCategoriaComponent {
   }
 
   ngOnInit():void{
+
+    this.titleService.setTitle(`Edit Category - Shopee`);
+
     this.form=this._formBuilder.group({
       categoria:[""]
     })

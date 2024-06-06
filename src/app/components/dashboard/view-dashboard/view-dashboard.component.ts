@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ValidUser } from '../../../helpers/validUser';
 import { ActivatedRoute } from '@angular/router';
 import { ValidSlugHelper } from '../../../helpers/validSlug.helpers';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-dashboard',
@@ -18,7 +19,8 @@ export class ViewDashboardComponent {
 
   constructor(private userValid:ValidUser,
     private route:ActivatedRoute,
-    private validSlugHelper:ValidSlugHelper){
+    private validSlugHelper:ValidSlugHelper,
+    private titleService: Title){
     
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -27,7 +29,9 @@ export class ViewDashboardComponent {
     this.productRouter = `/${this.slug}/product`;
     this.categoriaRouter = `/${this.slug}/categoria`;
 
-    this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");   
+    this.userValid.validOnOFF()?(this.userValid.userValid()):(location.href="/login");
+    
+    this.titleService.setTitle(`Welcome to Shopee`);
   }
 
 }

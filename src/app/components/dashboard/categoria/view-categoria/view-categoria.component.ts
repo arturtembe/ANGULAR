@@ -4,6 +4,7 @@ import { Categoria } from '../../../../interfaces/Categoria';
 import { ValidUser } from '../../../../helpers/validUser';
 import { ActivatedRoute } from '@angular/router';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-categoria',
@@ -21,7 +22,8 @@ export class ViewCategoriaComponent {
   constructor(private categoriaService:CategoriaService,
     private userValid:ValidUser,
     private route:ActivatedRoute,
-    private validSlugHelper:ValidSlugHelper){
+    private validSlugHelper:ValidSlugHelper,
+    private titleService: Title){
 
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -33,7 +35,7 @@ export class ViewCategoriaComponent {
   }
 
   ngOnInit():void{
-  
+    this.titleService.setTitle(`All Category - Shopee`);
   }
 
   addCategoriaHandle(){

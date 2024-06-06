@@ -1,11 +1,11 @@
 import { Component,OnInit } from '@angular/core';
-
 import { Categoria } from '../../../../interfaces/Categoria';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidUser } from '../../../../helpers/validUser';
 import { ActivatedRoute } from '@angular/router';
 import { ValidSlugHelper } from '../../../../helpers/validSlug.helpers';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-categoria',
@@ -27,7 +27,8 @@ export class AddCategoriaComponent {
               private _formBuilder:FormBuilder,
               private userValid:ValidUser,
               private route:ActivatedRoute,
-            private validSlugHelper:ValidSlugHelper){
+              private validSlugHelper:ValidSlugHelper,
+              private titleService: Title){
 
     this.validSlugHelper.verifySlug(route);
     this.slug = this.route.snapshot.paramMap.get("slug");
@@ -38,6 +39,9 @@ export class AddCategoriaComponent {
   }
 
   ngOnInit():void{
+
+    this.titleService.setTitle(`Add Category - Shopee`);
+
     this.form=this._formBuilder.group({
       categoria:[""]
     })
