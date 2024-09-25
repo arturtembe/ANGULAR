@@ -1,0 +1,173 @@
+
+// COLOR
+$w:#ffff;
+$b:#000;
+$b_c:#333;
+$r:#f00;
+$r_z:rgb(247, 161, 161);
+$a:#00f;
+$b_sd:0 0 30px rgba(0, 0, 0, .5);
+$d_border:2px solid rgba(255, 255, 255, .5);
+$full_prc:100%;
+$vh:100vh;
+$vw:100vw;
+//$c_p:#162938;
+$c_p_c:$b;
+$c_p:#2e84c6;
+$c_p_b:#a0d5fe;
+$d:#ddd;
+
+
+#app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: $vh;
+    padding: 2%;
+}
+
+/* Wrapper: Email and Login*/
+
+.section-view-dashboard{
+    display: flex;
+    padding: 2% 5%;
+
+    & .wrapper{
+        position: relative;
+        width: $full_prc;
+        background: transparent;
+        border: $d_border;
+        border-radius: 20px;
+        box-shadow: $b_sd;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        transform: scale(1);
+        transition: transform .5s ease,height .2s ease;
+        
+        & .header-wrapper{
+            width: $full_prc;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            display: flex;
+
+            & .header-tab{
+                border: 1px solid $d;
+
+                & button{
+                    padding: 10px 15px;
+                    border: 1px solid transparent;
+                    outline: none;
+                    background-color: $w;
+                    font-size: 26px;
+
+                    &:hover{
+                        cursor: pointer;
+                        color: $c_p_c;
+                    }
+                    &.active{
+                        color: $c_p;
+                        border-bottom: 1px solid $c_p;
+                    }
+                }
+            }
+        }
+
+        & .form-box{
+            width: $full_prc;
+
+            & .box{
+                width: $full_prc;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                & .input-box{
+                    width: $full_prc;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px 4%;
+
+                    & label{
+                        font-size: 17px;
+                        color: $b_c;
+                    }
+                    & input{
+                        width: 95%;
+                        padding: 15px 10px;
+                        margin-top: 10px;
+                        border-radius: 15px;
+                        border: 1px solid $b_c;
+                        outline: none;
+                        color: $b_c;
+                        font-size: 17px;
+                    }
+                    & select{
+                        border: 1px solid $r;
+                        background-color: $w;
+                        width: $full_prc;
+                        padding: 15px 10px;
+                        margin-top: 10px;
+                        border-radius: 15px;
+                        border: 1px solid $b_c;
+                        outline: none;
+                        color: $b_c;
+                        font-size: 17px;
+                    }
+
+                    & .controls{
+                        display: flex;
+                        justify-content: flex-end;
+                        flex-wrap: wrap;
+
+                        & .btn{
+                            margin-left: 10px;
+                            padding: 10px 35px;
+                            font-size: 17px;
+                            color: $w;
+                            outline: none;
+                            border-radius: 10px;
+
+                            &:hover{
+                                cursor: pointer;
+                                font-weight: 700;
+
+                                &:nth-child(1){
+                                    border:  1px solid $r;
+                                    background-color: $r;
+                                }
+                                &:nth-child(2){
+                                    border:  1px solid $c_p;
+                                    background-color: $c_p;
+                                }
+                            }
+
+                            &:nth-child(1){
+                                border:  1px solid $r_z;
+                                background-color: $r_z;
+                            }
+                            &:nth-child(2){
+                                border:  1px solid $c_p;
+                                background-color: $c_p_b;
+                            }
+                        }
+                    }
+                    & textarea{
+                        width: $full_prc;
+                        padding: 15px 10px;
+                        margin-top: 10px;
+                        border-radius: 15px;
+                        border: 1px solid $b_c;
+                        outline: none;
+                        color: $b_c;
+                        font-size: 17px;
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,197 @@
+
+$d:#ddd;
+$r:#f00;
+$b:#000;
+$b_z:#333;
+$w:#fff;
+$az:rgb(49, 153, 244);
+$a_link:rgb(21, 69, 240);
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.section-view-dashboard{
+    display: flex;
+    flex-direction: column;
+    padding: 2% 5%;
+
+    & .tabela-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 10px 2%;
+        margin: 0 10%;
+        box-shadow: 4px 4px 4px 4px $d;
+
+        & h1{
+            font-size: 42px;
+            font-weight: bold;
+            color: $az;
+            word-wrap: break-word;
+        }
+
+        & button{
+            outline: none;
+            border: none;
+            cursor: pointer;
+            background-color: $a_link;
+            color: $w;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+    }
+    /* Tabela View */
+    & .tabela-view{
+        width: 100%;
+        height: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+
+        & table{
+            margin: 0 1%;
+            box-shadow: 4px 4px 4px 4px $d;
+
+            & thead{
+                box-shadow: 4px 4px 3px 4px $d;
+                background-color: $w;
+
+                & tr{
+                    box-shadow: 4px 4px 3px 4px $d;
+
+                    & th{
+                        padding: 10px 20px;
+                        font-size: 19px;
+                    }
+                }
+            }
+            & tbody{
+                background-color: #fff;
+
+                & tr{
+
+                    & td{
+                        padding: 10px 20px;
+                        word-wrap: break-word;
+                        font-size: 17px;
+
+                        /* Controls Button: Edit e Remove */
+                        &:nth-child(3){
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        & .ctrl-edit-remover{
+                            padding: 5px;
+                            display: inline-flex;
+                            align-items: center;
+                            margin-left: 5px;
+                            border: none;
+                            outline: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+
+                            & svg{
+                                
+                                & path{
+                                    fill: #fff;
+                                }
+                            }
+
+                            /* Edit */
+                            &:nth-child(1){
+                                background-color: rgb(178, 178, 243);
+                                &:hover{
+                                    background-color: rgb(54, 54, 249);
+                                }
+                            }
+                            /* Remove */
+                            &:nth-child(2){
+                                background-color: rgb(249, 169, 169);
+                                &:hover{
+                                background-color: rgb(248, 62, 62);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+}
+
+@media screen and (max-width:500px) {
+    .section-view-dashboard{
+
+        & .tabela-header{
+            
+            & h1{
+                font-size: 32px;
+            }
+    
+        }
+
+    }
+}
+
+@media screen and (max-width:360px) {
+    .section-view-dashboard{
+
+        & .tabela-header{
+            
+            & h1{
+                font-size: 25px;
+            }
+    
+        }
+
+        & .tabela-view{
+            
+            & table{
+            
+                & thead{
+            
+                    & tr{
+                        box-shadow: 4px 4px 3px 4px $d;
+    
+                        & th:nth-child(2){
+                            //display: none;
+                        }
+                    }
+                }
+                & tbody{
+
+                    & tr{
+    
+                        & td:nth-child(2){
+                            //display: none;
+                        }
+                    }
+    
+                }
+            }
+    
+        }
+    }
+}
+
+@media screen and (max-width:280px) {
+    .section-view-dashboard{
+
+        & .tabela-header{
+            
+            & h1{
+                font-size: 17px;
+            }
+    
+        }
+    }
+}
